@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./LoginPage.css";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
@@ -13,6 +13,10 @@ import {
 
 function LoginPage(props) {
 
+  useEffect(() => {
+    localStorage.removeItem("user_token");
+    localStorage.removeItem("expiresIn");
+  }, [])
 
     // const history = useHistory();
     const [{}, dispatch] = useStateValue();
@@ -22,6 +26,18 @@ function LoginPage(props) {
     const [password, setPassword] = useState("");
     // const [userType, setUserType] = useState("depoUser");
     const [isRegister, setIsRegister] = useState(false);
+
+    const handleTimer = (time) => {
+      setTimeout(() => {
+        console.log("aaa");
+        localStorage.removeItem("user_token");
+        localStorage.removeItem("expiresIn");
+        dispatch({
+          type: actionTypes.REMOVE_USER
+        })
+        props.history.push("/login");
+      }, 60 *1000)
+    }
   
     const handleSignIn = (e) => {
       if(email === "" || password === ""){
@@ -38,7 +54,7 @@ function LoginPage(props) {
         .post(
           "http://18.134.0.153:3200/user/login",
           querystring.stringify({
-            useremail: email,
+            useremail: email,  
             password: password,
           }),
           {
@@ -50,7 +66,9 @@ function LoginPage(props) {
         .then((data) => {
           console.log(data);
           localStorage.setItem("user_token", data.data.sessionToken);
-          localStorage.setItem("expiresIn", 3600);
+          const time = new Date(new Date().getTime() + 60 *1000);
+          localStorage.setItem("expiresIn", time);
+          handleTimer(time);
           dispatch({
             type: actionTypes.SET_USER_TOKEN,
             user_token: data.data.sessionToken
@@ -172,3 +190,9 @@ function LoginPage(props) {
 }
 
 export default LoginPage
+
+
+
+
+
+

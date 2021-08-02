@@ -9,6 +9,7 @@ import {RiImageAddFill} from 'react-icons/ri'
 import {
   UncontrolledAlert,
 } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 const ContainerPhotoUpload = () => {
   const [randomString, setRandomString] = useState("");
@@ -411,7 +412,7 @@ const ContainerPhotoUpload = () => {
 
 
 
-        {/* <br/><br/>
+        <br/><br/>
         <h5>
           <i>Others</i>
         </h5>
@@ -422,9 +423,9 @@ const ContainerPhotoUpload = () => {
           <div className="col-md-10">
             <input
               type="checkbox"
-              className="ml-0 interior-checkbox"
+              className="ml-0 other-checkbox"
               defaultChecked={false}
-              onChange={interiorCheckingBox}
+              // onChange={OtherCheckingBox}
             />{' '}
             Others
           </div>
@@ -456,7 +457,7 @@ const ContainerPhotoUpload = () => {
                     type="file"
                     id={`upload-buttons-${item.id}`}
                     className="photo-upload"
-                    onChange={(e) => handleInteriorChangePhoto(e, item.id, i)}
+                    // onChange={(e) => handleOtherChangePhoto(e, item.id, i)}
                     style={{ display: "none" }}
                     key = {randomString}
                   />
@@ -464,27 +465,21 @@ const ContainerPhotoUpload = () => {
                   <div>
                     {item.name}
                     <input
-                      className={`ml-1 checkbox-items-inter check-${i}`}
+                      className={`ml-1 checkbox-items-other check-${i}`}
                       type="checkbox"
-                      onChange={(e) => handleInteriorOnChange(e, item.id, i)}
+                      // onChange={(e) => handleOthersOnChange(e, item.id, i)}
                     />
                   </div>
                 </div>
-                
-                
                 </a>
               ))}
-              
-  </div>
-
           </div>
-        </div> */}
-
-
+          </div>
+        </div>
 
         <div className="buttons">
           
-            <button className="btn btn-primary">Previous</button>
+            <Link to="/containerrequest"><button className="btn btn-primary">Previous</button></Link>
           <button className="btn btn-primary submit">Submit</button>
         </div>
 

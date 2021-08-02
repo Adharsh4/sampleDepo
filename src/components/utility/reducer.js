@@ -17,7 +17,8 @@ export const actionTypes = {
     SET_USERS: "SET_USERS",
     SET_REQUESTS: "SET_REQUESTS",
     SET_CUSTREQUEST:"SET_CUSTREQUEST",
-    SET_USER_TOKEN: "SET_USER_TOKEN"
+    SET_USER_TOKEN: "SET_USER_TOKEN",
+    REMOVE_USER: "REMOVE_USER"
 }
 
 const reducer = (state = initialState, action) => {
@@ -56,7 +57,18 @@ const reducer = (state = initialState, action) => {
             return { 
                 ...state,
                 user_token: action.user_token
-            }      
+            }  
+        case actionTypes.REMOVE_USER:
+            return {
+                ...state,
+                containers: [],
+                users: [],
+                user: "",
+                email: "depoadmin@me.com",
+                requests: [],
+                req :[],
+                user_token: ""
+            }    
         default:
             return state;
     }

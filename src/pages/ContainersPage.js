@@ -12,11 +12,10 @@ import { useStateValue } from '../components/utility/stateProvider';
 import {actionTypes} from '../components/utility/reducer';
 import {CgSoftwareUpload} from 'react-icons/cg'
 import {MdPersonAdd} from 'react-icons/md'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-const ContainersPage = () => {
+const ContainersPage = (props) => {
   const [{ containers }, dispatch] = useStateValue();
-
-
   const [toShow, setToShow] = useState(false);
   const [actionName, setActionName] = useState('');
   const [depoState, setDepoState] = useState('');
@@ -196,7 +195,6 @@ const ContainersPage = () => {
             </table>
           </div>
         </div>
-        
       </div>
     </React.Fragment>
   );

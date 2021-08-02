@@ -16,6 +16,7 @@ function LoginPage(props) {
   useEffect(() => {
     localStorage.removeItem("user_token");
     localStorage.removeItem("expiresIn");
+    localStorage.removeItem("userType");
   }, [])
 
     // const history = useHistory();
@@ -36,7 +37,7 @@ function LoginPage(props) {
           type: actionTypes.REMOVE_USER
         })
         props.history.push("/login");
-      }, 60 *1000)
+      }, 5*60*1000)
     }
   
     const handleSignIn = (e) => {
@@ -46,10 +47,7 @@ function LoginPage(props) {
         return;
       }
       e.preventDefault();
-      dispatch({
-        type: actionTypes.SET_EMAIL,
-        email: email
-      })
+    
       axios
         .post(
           "http://18.134.0.153:3200/user/login",
@@ -66,12 +64,17 @@ function LoginPage(props) {
         .then((data) => {
           console.log(data);
           localStorage.setItem("user_token", data.data.sessionToken);
-          const time = new Date(new Date().getTime() + 60 *1000);
+          const time = new Date(new Date().getTime() + 5 * 60 *1000);
           localStorage.setItem("expiresIn", time);
+          localStorage.setItem("userType", data.data.res_user_type);
           handleTimer(time);
           dispatch({
             type: actionTypes.SET_USER_TOKEN,
             user_token: data.data.sessionToken
+          })
+          dispatch({
+            type: actionTypes.SET_USERTYPE,
+            usertype: data.data.res_user_type
           })
           if(data.data.message === "user name or password does not match"){
             setIsError("error");

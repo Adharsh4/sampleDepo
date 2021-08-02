@@ -2,7 +2,7 @@ export const initialState = {
     containers: [],
     users: [],
     user: "",
-    email: "depoadmin@me.com",
+    usertype : "",
     requests: [],
     req :[],
     user_token: ""
@@ -13,12 +13,13 @@ export const initialState = {
 export const actionTypes = {
     SET_CONTAINERS: "SET_CONTAINERS",
     SET_USER: "SET_USER",
-    SET_EMAIL: "SET_EMAIL",
+    SET_USERTYPE: "SET_USERTYPE",
     SET_USERS: "SET_USERS",
     SET_REQUESTS: "SET_REQUESTS",
     SET_CUSTREQUEST:"SET_CUSTREQUEST",
     SET_USER_TOKEN: "SET_USER_TOKEN",
     REMOVE_USER: "REMOVE_USER"
+
 }
 
 const reducer = (state = initialState, action) => {
@@ -33,10 +34,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: action.user
             }
-        case actionTypes.SET_EMAIL:
+        case actionTypes.SET_USERTYPE:
             return {
                 ...state,
-                email: action.email
+                usertype: action.usertype
             }
         case actionTypes.SET_USERS:
             return { 

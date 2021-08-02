@@ -307,9 +307,9 @@ const Containerform = (props) => {
           </div>
           <div className="offset-8 col-md-2">
            
-              <button className="btn btn-primary" style={{float : "right"}} onClick={(e) => check(e)}>
-                Submit
-              </button>
+              <Link to="/containerphotoupload"><button className="btn btn-primary" style={{float : "right"}}>
+                Next
+              </button></Link>
          
           </div>
         </div>

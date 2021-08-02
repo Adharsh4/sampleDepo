@@ -7,7 +7,7 @@ import querystring from 'querystring';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Page from 'components/Page';
-import axiosInstance from '../components/utility/axios';
+// import axiosInstance from '../components/utility/axios';
 import { useStateValue } from '../components/utility/stateProvider';
 import {actionTypes} from '../components/utility/reducer';
 import {CgSoftwareUpload} from 'react-icons/cg'
@@ -15,7 +15,7 @@ import {MdPersonAdd} from 'react-icons/md'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const ContainersPage = (props) => {
-  const [{ containers }, dispatch] = useStateValue();
+  const [{ containers, user_token }, dispatch] = useStateValue();
   const [toShow, setToShow] = useState(false);
   const [actionName, setActionName] = useState('');
   const [depoState, setDepoState] = useState('');
@@ -70,15 +70,17 @@ const ContainersPage = (props) => {
   };
 
   const submitHandler = e => {
-    axiosInstance
+    console.log("aaa"+user_token);
+    axios
       .post(
-        '/container/getcontainersfordepoadmin',
+        'http://18.134.0.153:3200/container/getcontainersfordepoadmin',
         querystring.stringify({
           username: 'depoadmin',
         }),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            "sessiontoken": user_token
           },
         },
       )

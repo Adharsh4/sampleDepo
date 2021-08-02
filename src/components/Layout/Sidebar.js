@@ -54,14 +54,16 @@ const bem = bn.create('sidebar');
 
 const Sidebar = (props) => {
 
+
   const [isOpenComponents, setIsOpenComponents] = useState(true);
   const [isOpenContents, setIsOpenContents] = useState(true);
   const [isOpenPages, setIsOpenPages] = useState(true);
 
   const [{email}, dispatch] = useStateValue();
 
+  const [usertype, setUserType] = useState(localStorage.getItem("userType"));
   let navItems = [];
-  if(email === "depoadmin@me.com"){
+  if(usertype === "depoadmin" || usertype === "depouser" || usertype === "deposurveyor"){
     navItems = [
       { to: '/home', name: 'home', exact: true, Icon: FaHome },
       { to: '/containers', name: 'containers', exact: false, Icon: IoMdCube },
@@ -70,7 +72,7 @@ const Sidebar = (props) => {
       { to: '/modals', name: 'my account', exact: false, Icon: FaUserCircle },
      
     ];
-  }else if(email === "customerthree@me.com"){
+  }else if(usertype === "customer"){
     navItems = [
       { to: '/customerhomepage', name: 'home', exact: true, Icon: FaHome },
       { to: '/customerrequest', name: 'request', exact: false, Icon: CgUserList},
@@ -107,7 +109,7 @@ const Sidebar = (props) => {
                 alt=""
               /> */}
               <span className="text-white">
-                {email === "depoadmin@me.com" ? "Depo Admin": "Customer Admin"}
+                {usertype === "depoadmin" || usertype === "depouser" || usertype === "deposurveyor" ? "Depo Admin": "Customer Admin"}
                 
                 {/* <FaGithub /> */}
               </span>

@@ -479,7 +479,7 @@ const ContainerPhotoUpload = () => {
 
         <div className="buttons">
           
-            <Link to="/containerrequest"><button className="btn btn-primary">Previous</button></Link>
+            <Link to="/containerform"><button className="btn btn-primary">Back</button></Link>
           <button className="btn btn-primary submit">Submit</button>
         </div>
 

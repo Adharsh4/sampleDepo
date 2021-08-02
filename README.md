@@ -1,6 +1,6 @@
-# [Depo Name - Free Admin Template Built with React and Bootstrap4](https://reduction-admin.github.io/react-reduction/)
+# [Depo Admin - Free Admin Template Built with React and Bootstrap4](https://reduction-admin.github.io/react-reduction/)
 
-![Depo Name](public/img/screenshots/reduction-admin.jpg?raw=true 'Depo Name')
+![Depo Admin](public/img/screenshots/reduction-admin.jpg?raw=true 'Depo Admin')
 
 ## Preview
 
@@ -16,7 +16,7 @@ You can check out [live preview](https://reduction-admin.github.io/react-reducti
 
 ## Note
 
-Depo Name is built on top of [Create React App](https://github.com/facebook/create-react-app), which means all features that create-react-app supports are available.
+Depo Admin is built on top of [Create React App](https://github.com/facebook/create-react-app), which means all features that create-react-app supports are available.
 
 To enable basic Google Analytics page tracking, you can add "REACT_APP_GOOGLE_ANALYTICS" variable in .env(or create env.production) file. For example, `REACT_APP_GOOGLE_ANALYTICS=xxxxxx` like this.
 

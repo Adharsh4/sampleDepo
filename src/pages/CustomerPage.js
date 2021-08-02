@@ -68,7 +68,6 @@ function CustomerPage() {
                     <th>Address</th>
                   </tr>
                 </thead>
-              
 
                 <tbody>
                   <tr>

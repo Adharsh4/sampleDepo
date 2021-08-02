@@ -1,0 +1,12 @@
+a:hover {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.buttons{
+    display: inline;
+}
+
+.span-active{
+    height: 25px;
+}

@@ -1,0 +1,113 @@
+/* .container-form{
+    margin-left: 150px;
+    margin-top: 70px !important;
+} */
+
+.buttons{
+  display: inline;
+}
+
+.submit{
+  float: right;
+}
+
+div.scrollmenu {
+  /* background-color: #333; */
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+/* div.scrollmenu a:hover {
+  background-color: rgba(248, 248, 248, 0.473);                    
+} */
+
+
+.hscroll{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.inline{
+    display: inline;
+margin-left: 100px;
+}
+
+.outline{
+    margin-left: 50px;
+}
+
+ .submit{
+    float: right;
+ }
+
+.next{
+    float: right;
+}
+
+a :hover{
+  color: black !important;
+}
+
+div.scrollmenu :hover{
+  color: black !important;
+}
+
+.menu-item {
+    padding: 0 0px;
+    margin: 5px 20px;
+    /* user-select: none; */
+    /* cursor: pointer; */
+    border: none;
+  }
+  /* .menu-item-wrapper.active {
+    border: 1px blue solid;
+  }
+  .menu-item.active {
+    border: 1px green solid;
+  } */
+  
+.photo-upload{
+    opacity: 0;
+    z-index: -999;
+    display: none;
+}
+
+.photoDetails{
+  width: 20px;
+  height: 20px;
+}
+
+.label-for-photo{
+    cursor: pointer;
+}
+.arrow-prev{
+cursor: pointer;
+}
+.arrow-next{
+    cursor: pointer;
+}
+[role=button]{
+    cursor: default !important;
+}
+
+  .scroll-menu-arrow {
+    padding: 20px;
+    /* cursor: pointer; */
+  }
+
+ .container-form .active{
+      color: black !important;
+  }
+
+  .bx-image-add{
+    font-size: 35px;
+  }

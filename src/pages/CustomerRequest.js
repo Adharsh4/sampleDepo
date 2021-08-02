@@ -92,7 +92,7 @@ function CustomerRequest() {
             
             <div className="col-md-2">
              
-                <RiAddCircleFill className="icon"/>
+                <Link to="/newrequest"><RiAddCircleFill className="icon"/></Link>
             </div>
           </div>
           <br />

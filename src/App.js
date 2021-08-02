@@ -144,7 +144,7 @@ class App extends React.Component {
         </GAListener>
         
       </BrowserRouter>
-      <Button color="danger" onClick={toggle}>modall</Button>
+      {/* <Button color="danger" onClick={toggle}>modall</Button> */}
       <Modal isOpen={this.state.modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>Modal title</ModalHeader>
         <ModalBody>

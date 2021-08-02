@@ -66,7 +66,7 @@ function LoginPage(props) {
           localStorage.setItem("user_token", data.data.sessionToken);
           const time = new Date(new Date().getTime() + 5 * 60 *1000);
           localStorage.setItem("expiresIn", time);
-          localStorage.setItem("userType", data.data.res_user_type);
+          localStorage.setItem("userType", data.data.userType);
           handleTimer(time);
           dispatch({
             type: actionTypes.SET_USER_TOKEN,

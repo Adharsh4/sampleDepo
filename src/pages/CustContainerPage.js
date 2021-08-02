@@ -5,6 +5,7 @@ import './ContainersPage.css';
 // import Containerform from './Containerform';
 import querystring from 'querystring';
 import axios from 'axios';
+// import axiosInstance from "../components/utility/axios";
 import { Link } from 'react-router-dom';
 import Page from 'components/Page';
 import { useStateValue } from '../components/utility/stateProvider';
@@ -15,7 +16,7 @@ import {MdPersonAdd} from 'react-icons/md'
 const ContainersPage = () => {
   const [{ containers }, dispatch] = useStateValue();
 
-
+  const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
   const [toShow, setToShow] = useState(false);
   const [actionName, setActionName] = useState('');
   const [depoState, setDepoState] = useState('');
@@ -79,11 +80,12 @@ const ContainersPage = () => {
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            "sessiontoken": userToken
           },
         },
       )
       .then(data => {
-     
+        console.log("aa");
         console.log(data.data.results);
         //if(data.data.results.length != containers.length){
        
@@ -98,8 +100,9 @@ const ContainersPage = () => {
   };
 
  
-
-  let loadedContent = containers.map(singleData => {
+let loadedContent = [];
+if(containers){
+   loadedContent = containers.map(singleData => {
     return (
       <tr key={singleData.container_no} >
         <td>{singleData.container_no}</td>
@@ -126,6 +129,7 @@ const ContainersPage = () => {
       </tr>
     );
   });
+}
 
   return (
     <React.Fragment>

@@ -15,7 +15,8 @@ import {MdPersonAdd} from 'react-icons/md'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const ContainersPage = (props) => {
-  const [{ containers, user_token }, dispatch] = useStateValue();
+  const [{ containers }, dispatch] = useStateValue();
+  const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
   const [toShow, setToShow] = useState(false);
   const [actionName, setActionName] = useState('');
   const [depoState, setDepoState] = useState('');
@@ -70,7 +71,7 @@ const ContainersPage = (props) => {
   };
 
   const submitHandler = e => {
-    console.log("aaa"+user_token);
+    console.log("aaa"+userToken);
     axios
       .post(
         'http://18.134.0.153:3200/container/getcontainersfordepoadmin',
@@ -80,7 +81,7 @@ const ContainersPage = (props) => {
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            "sessiontoken": user_token
+            "sessiontoken": userToken
           },
         },
       )
@@ -99,9 +100,9 @@ const ContainersPage = (props) => {
       .catch(() => {});
   };
 
- 
-
-  let loadedContent = containers.map(singleData => {
+ let loadedContent=[];
+if(containers){
+   loadedContent = containers.map(singleData => {
     return (
       <tr key={singleData.container_no} >
         <td>{singleData.container_no}</td>
@@ -134,6 +135,7 @@ const ContainersPage = (props) => {
       </tr>
     );
   });
+}
 
   return (
     <React.Fragment>

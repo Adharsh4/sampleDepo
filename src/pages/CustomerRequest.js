@@ -55,7 +55,7 @@ function CustomerRequest() {
         },
       )
       .then(data => {
-      
+        if(data)
         console.log(data)
         //if(data.data.results.length != containers.length){
           console.log("sandeep1");
@@ -100,7 +100,7 @@ function CustomerRequest() {
           <br />
           <div className="row">
             <div className="col-lg-12">
-              <Table hover>
+              <Table hover> 
                 <thead>
                   <tr className="table-header">
                     <th>Depo Name</th>
@@ -114,9 +114,9 @@ function CustomerRequest() {
 
                     return (
                     <tr key ={singleData.containerNo}>
-                      <td>{singleData.depoName}</td>
+                      <td>{singleData.depoCode}</td>
                       <td>{singleData.containerNo}</td>
-                      <td>{singleData.purpose} </td>
+                      <td>{singleData.containerPurpose} </td>
                       <td>{singleData.status}</td>
                     </tr>)
 

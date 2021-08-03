@@ -15,10 +15,11 @@ import {MdPersonAdd} from 'react-icons/md'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const ContainersPage = (props) => {
-  const [{ containers}, depocode , dispatch] = useStateValue();
+  const [{ containers} , dispatch] = useStateValue();
 
   // const [depocode , dispatch] = useStateValue();
   const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
+  const [depocode, setDepocode] = useState(localStorage.getItem("depocode"))
   const [toShow, setToShow] = useState(false);
   const [actionName, setActionName] = useState('');
   const [depoState, setDepoState] = useState('');
@@ -73,8 +74,6 @@ const ContainersPage = (props) => {
   };
 
   const submitHandler = e => {
-    console.log("aaa"+userToken);
-    console.log(depocode)
     axios
       .post(
         'http://18.134.0.153:3200/container/getcontainersfordepo',
@@ -112,13 +111,7 @@ if(containers){
         <td>{singleData.container_size}</td>
         <td>{singleData.container_manufactuer_date}</td>
         <td>
-          <button
-            type="button"
-            className="btn-default"
-            onClick={() => changeToShow('PHOTO_UPLOAD')}
-          >
             {singleData.image_upload_status}
-          </button>
         </td>
         <td>
           <button

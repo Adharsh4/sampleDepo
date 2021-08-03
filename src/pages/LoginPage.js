@@ -64,7 +64,7 @@ function LoginPage(props) {
         .then((data) => {
           console.log(data);
           localStorage.setItem("user_token", data.data.sessionToken);
-          const time = new Date(new Date().getTime() + 5 * 60 *1000);
+          const time = new Date(new Date().getTime() + 10 * 60 *1000);
           localStorage.setItem("expiresIn", time);
           localStorage.setItem("userType", data.data.userType);
           localStorage.setItem("userName", data.data.userName);
@@ -90,7 +90,10 @@ function LoginPage(props) {
             setIsError("error");
           }else{
           console.log(data)
-          props.history.push("/home");
+          if(localStorage.getItem("userType") === "customer"){
+          props.history.push("/customerhomepage");}else{
+            props.history.push("/home")
+          }
           }
         })
         .catch(() => {  

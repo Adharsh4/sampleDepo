@@ -67,7 +67,7 @@ function NewRequestForm(props) {
                   username : localStorage.getItem("userName"),
                   containerno: containerno,
                   depocode: depocode,
-                  purpose: purpose
+                  containerpurpose: purpose
                  }),
                  {
                    headers: {

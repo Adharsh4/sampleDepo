@@ -11,6 +11,7 @@ import {MdPersonAdd} from 'react-icons/md'
 
 const UserPage = () => {
 
+  const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
   const [{ users }, dispatch] = useStateValue();
    
   const [toShow,  setToShow] = useState(false);
@@ -45,16 +46,17 @@ const UserPage = () => {
       .post(
         'http://18.134.0.153:3200/user/getdepousers',
         querystring.stringify({
-          username: 'depoadmin',  
+          username: localStorage.getItem("userName"),  
         }),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            "sessiontoken": userToken
           },
         },
       )
       .then(data => {
-       
+       console.log(data)
         console.log(data.data.depoUsers)
         //if(data.data.results.length != containers.length){
         
@@ -122,7 +124,7 @@ const UserPage = () => {
         <th>Status</th>
       </tr>
     </thead>
-      {users.map(singleData => {
+      {users ? users.map(singleData => {
 
         return <tbody>
         <tr>
@@ -133,7 +135,7 @@ const UserPage = () => {
         </tr>
         
       </tbody>
-      })}
+      }): null}
     
   </table>
                   

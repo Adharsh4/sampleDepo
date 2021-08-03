@@ -70,6 +70,9 @@ function TabPanel(props) {
 
 function DepoCustPage() {
   const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
+  const [{requests}, dispatch] = useStateValue();
+    const classes = useStyles();
+  const [value, setValue] = React.useState(0);
 
   useEffect(() => {
     DepoCustomerHandler();
@@ -136,11 +139,11 @@ function DepoCustPage() {
       });
   };
 
+  
+
     
 
-  const [{requests}, dispatch] = useStateValue();
-    const classes = useStyles();
-  const [value, setValue] = React.useState(0);
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -148,14 +151,13 @@ function DepoCustPage() {
 
   let myRequests = [];
   let myRequestsHistory = [];
-  if(myRequests && requests){
-     myRequests = requests.filter(singleData => singleData.container_status === "Active")
+  let customerRequest = [];
+  if(requests){
+    customerRequest = requests.filter(singleData => singleData.status === "pending")
+    let temp = requests.filter(singleData => singleData.status === "accepted")
+    myRequests = temp.filter(singleData => singleData.imageStatus === "pending" || singleData.imageStatus === "")
+    myRequestsHistory = requests.filter(singleData => singleData.imageStatus === "Completed")
   }
-  if(myRequestsHistory && requests){
-     myRequestsHistory = requests.filter(singleData => singleData.cimage_upload_status === "Completed")
-  }
-  
-  
 
     return (
         <div className="cust-request">
@@ -190,11 +192,11 @@ function DepoCustPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  { requests ? requests.map(singleData => {
+                  { customerRequest ? customerRequest.map(singleData => {
                     return (
                       <tr key={singleData.containerNo}>
                       <td>{singleData.containerNo}</td>
-                      <td>{singleData.container_manufactuer_date}</td>
+                      <td>{singleData.dateRequested}</td>
                       <td>{singleData.custName}</td>
                       <td>
                         {singleData.status === "pending" ? <div className="buttons">
@@ -229,13 +231,13 @@ function DepoCustPage() {
                   {myRequests ? myRequests.map(singleData => {
                       return (
                             <tr>
-                        <td>{singleData.container_no}</td>
-                        <td>{singleData.container_manufactuer_date}</td>
-                        <td>{singleData.container_purpose}</td>
-                        <td>{singleData.image_upload_status}</td>
+                        <td>{singleData.containerNo}</td>
+                        <td>{singleData.dateRequested}</td>
+                        <td>{singleData.containerPurpose}</td>
+                        <td>{singleData.imageStatus}</td>
                         <td>
                             <div className="buttons">
-                            <Link to="/containerphotoupload"><Button color="success">Upload</Button></Link>{' '}
+                            <Link to="/containerform"><Button color="success">Upload</Button></Link>{' '}
                             <Button color="warning">On Hold</Button>{' '}
                             <Button color="danger">Cancel</Button>{' '}
                             </div>

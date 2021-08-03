@@ -11,20 +11,32 @@ function RegisterPage(props) {
 
     // const history = useHistory();
 
-    const [email, setEmail] = useState("");
+    const [customername, setCustomerName] = useState("");
+    const [customeremail, setCustomerEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [userType, setUserType] = useState("depoUser");
-    const [isRegister, setIsRegister] = useState(false);
+    const [customermblno, setCustomerMblno] = useState("");
+    const [username, setUserName] = useState("");
   
-    const handleSignIn = (e) => {
+    const handleSignUp = (e) => {
       e.preventDefault();
       axios
         .post(
-          "http://18.134.0.153:3200/user/login",
+          "http://18.134.0.153:3200/user/register",
           querystring.stringify({
-            usertype: userType,
-            custemail: email,
+            usertype: "customer",
+            role : "superadmin",
+            custname : customername,
+            custusername : username,
+            custmobno : customermblno,
+            custemail: customeremail,
             password: password,
+            custadd : "Chennai",
+            custcity : "Chennai",
+            custstate : "Tamilnadu",
+            custcountry : "India",
+            custlat : "13.067439",
+            custlon : "80.237617",
+            depocode : "CHA_TRI"
           }),
           {
             headers: {
@@ -34,9 +46,11 @@ function RegisterPage(props) {
         )
         .then((data) => {
           console.log(data);
-          props.history.push("/home");
+          alert("Customer created succesfully.")
+          props.history.push("/");
         })
         .catch(() => {
+          alert("Username and Email already exist");
           console.log("error");
         });
     };
@@ -74,34 +88,34 @@ function RegisterPage(props) {
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bx bx-user"></i></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Customer Name" autocomplete="customername" required/>
+                  <input type="text" class="form-control" placeholder="Customer Name" autocomplete="customername" required onChange={(e) => setCustomerName(e.target.value)}/>
                 </div>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text">@</span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Customer Email" autocomplete="customeremail" required/>
+                  <input type="text" class="form-control" placeholder="Customer Email" autocomplete="customeremail" required onChange={(e) => setCustomerEmail(e.target.value)}/>
                 </div>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bx bx-phone"></i></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Customer Mobilenumber" autocomplete="customermblnumber" required/>
+                  <input type="text" class="form-control" placeholder="Customer Mobilenumber" autocomplete="customermblnumber" required onChange={(e) => setCustomerMblno(e.target.value)}/>
                 </div>
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bx bx-user-circle"></i></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Username" autocomplete="username" required/>
+                  <input type="text" class="form-control" placeholder="Username" autocomplete="username" required onChange={(e) => setUserName(e.target.value)}/>
                 </div>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="bx bx-lock"></i></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required/>
+                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required onChange={(e) => setPassword(e.target.value)}/>
                 </div>
              
-                <Link to="/login"><button type="button" class="btn btn-block btn-success">Create Account</button></Link>
+               <button type="button" class="btn btn-block btn-success" onClick={handleSignUp}>Create Account</button>
               </form>
               </div>
             </div>

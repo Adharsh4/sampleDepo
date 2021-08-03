@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import './DepoCustRequest.css';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -69,6 +69,7 @@ function TabPanel(props) {
   }));
 
 function DepoCustPage() {
+  const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
 
   useEffect(() => {
     DepoCustomerHandler();
@@ -78,13 +79,14 @@ function DepoCustPage() {
   const DepoCustomerHandler = e => {
     axios
       .post(
-        'http://18.134.0.153:3200/container/getcontainerdatafordepo',
+        'http://18.134.0.153:3200/container/getnewcontainerrequest',
         querystring.stringify({
-          deponame: 'Chennai',
+          username: localStorage.getItem("userName")
         }),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            "sessiontoken": userToken
           },
         },
       )
@@ -95,7 +97,7 @@ function DepoCustPage() {
           console.log("sandeep1");
           dispatch({
             type: actionTypes.SET_REQUESTS,
-            requests: data.data.results
+            requests: data.data.containers
           })
         //}
         // setLoadedData(data.data.results);
@@ -105,24 +107,27 @@ function DepoCustPage() {
       });
   };
 
-  const checkAccept = (e, container_no) => {
+  const checkAccept = (e, container_no, userName) => {
     e.preventDefault();
     axios
       .post(
         "http://18.134.0.153:3200/container/containerrequestaccept",
         querystring.stringify({
           containerno : container_no,
+          username: userName
         }),
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
+            "sessiontoken": userToken
           },
         }
       )
       .then((data) => {
         // setLoadedData(data.data.results);
+        console.log("xxxx");
         console.log(data);
-        
+        DepoCustomerHandler();
     //     alert(data.data.message)
         
       })
@@ -141,8 +146,16 @@ function DepoCustPage() {
     setValue(newValue);
   };
 
-  let myRequests = requests.filter(singleData => singleData.container_status === "Active")
-  let myRequestsHistory = requests.filter(singleData => singleData.cimage_upload_status === "Completed")
+  let myRequests = [];
+  let myRequestsHistory = [];
+  if(myRequests && requests){
+     myRequests = requests.filter(singleData => singleData.container_status === "Active")
+  }
+  if(myRequestsHistory && requests){
+     myRequestsHistory = requests.filter(singleData => singleData.cimage_upload_status === "Completed")
+  }
+  
+  
 
     return (
         <div className="cust-request">
@@ -177,23 +190,23 @@ function DepoCustPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {requests.map(singleData => {
+                  { requests ? requests.map(singleData => {
                     return (
-                      <tr>
-                      <td>{singleData.container_no}</td>
+                      <tr key={singleData.containerNo}>
+                      <td>{singleData.containerNo}</td>
                       <td>{singleData.container_manufactuer_date}</td>
-                      <td>{singleData.container_asset_owner}</td>
+                      <td>{singleData.custName}</td>
                       <td>
-                        {singleData.container_status === "Pending" ? <div className="buttons">
-                            <Button color="success" onClick={(e) => checkAccept(e, singleData.container_no)}>Accept</Button>{' '}
+                        {singleData.status === "pending" ? <div className="buttons">
+                            <Button color="success" onClick={(e) => checkAccept(e, singleData.containerNo, singleData.custName)}>Accept</Button>{' '}
                             <Button color="danger">Decline</Button>{' '}
-                          </div>: singleData.container_status === "Active" ? <div> <h5><Badge color="success">Accepted</Badge></h5></div> :
+                          </div>: singleData.status === "Active" ? <div> <h5><Badge color="success">Accepted</Badge></h5></div> :
                           <div> <h5><Badge color="danger">Declined</Badge></h5></div>}
                           
                       </td>
                     </tr>
                     )
-                  })}
+                  }): null }
                 </tbody>
               </Table>
             </div>
@@ -213,7 +226,7 @@ function DepoCustPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {myRequests.map(singleData => {
+                  {myRequests ? myRequests.map(singleData => {
                       return (
                             <tr>
                         <td>{singleData.container_no}</td>
@@ -229,7 +242,7 @@ function DepoCustPage() {
                         </td>
                       </tr>
                       )
-                  })}
+                  }): null}
                   
                   
                 </tbody>
@@ -250,7 +263,7 @@ function DepoCustPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {myRequestsHistory.map(singleData => {
+                  {myRequestsHistory ? myRequestsHistory.map(singleData => {
                     return (
                             <tr>
                           <td>{singleData.container_n}</td>
@@ -263,7 +276,7 @@ function DepoCustPage() {
                           </td>
                         </tr>
                     )
-                  })}
+                  }): null}
                 </tbody>
               </Table>
             </div>

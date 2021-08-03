@@ -5,7 +5,9 @@ export const initialState = {
     usertype : "",
     requests: [],
     req :[],
-    user_token: ""
+    user_token: "",
+    userName : "",
+    depocode : ""
 }
 
 
@@ -18,8 +20,9 @@ export const actionTypes = {
     SET_REQUESTS: "SET_REQUESTS",
     SET_CUSTREQUEST:"SET_CUSTREQUEST",
     SET_USER_TOKEN: "SET_USER_TOKEN",
-    REMOVE_USER: "REMOVE_USER"
-
+    REMOVE_USER: "REMOVE_USER",
+    SET_USERNAME : "SET_USERNAME", 
+    SET_DEPOCODE : "SET_DEPOCODE"
 }
 
 const reducer = (state = initialState, action) => {
@@ -59,6 +62,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user_token: action.user_token
             }  
+        case actionTypes.SET_USERNAME:
+            return { 
+                ...state,
+                userName: action.userName
+                }  
+        case actionTypes.SET_USERNAME:
+            return { 
+                 ...state,
+                depocode: action.depocode
+                    } 
         case actionTypes.REMOVE_USER:
             return {
                 ...state,
@@ -68,7 +81,9 @@ const reducer = (state = initialState, action) => {
                 email: "depoadmin@me.com",
                 requests: [],
                 req :[],
-                user_token: ""
+                user_token: "",
+                userName : "",
+                depocode : ""
             }    
         default:
             return state;

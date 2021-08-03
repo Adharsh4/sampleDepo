@@ -67,6 +67,8 @@ function LoginPage(props) {
           const time = new Date(new Date().getTime() + 5 * 60 *1000);
           localStorage.setItem("expiresIn", time);
           localStorage.setItem("userType", data.data.userType);
+          localStorage.setItem("userName", data.data.userName);
+          localStorage.setItem("depocode", data.data.depoCode);
           handleTimer(time);
           dispatch({
             type: actionTypes.SET_USER_TOKEN,
@@ -76,6 +78,14 @@ function LoginPage(props) {
             type: actionTypes.SET_USERTYPE,
             usertype: data.data.res_user_type
           })
+          // dispatch({
+          //   type: actionTypes.SET_USERNAME,
+          //   userName: data.data.userName
+          // })
+          // dispatch({
+          //   type: actionTypes.SET_DEPOCODE,
+          //   depocode : data.data.depoCode
+          // })
           if(data.data.message === "user name or password does not match"){
             setIsError("error");
           }else{

@@ -13,6 +13,7 @@ import {actionTypes} from '../components/utility/reducer';
 function CustomerRequest() {
 
   const [{ req }, dispatch] = useStateValue();
+  const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
 
   const myFunction =() =>{
     var input, filter, table, tr, td, i, txtValue;
@@ -42,13 +43,14 @@ function CustomerRequest() {
   const customerHandler = e => {
     axios
       .post(
-        'http://18.134.0.153:3200/container/getcontainerdataforcustomer',
+        'http://18.134.0.153:3200/container/requestedcontainerbycustomer',
         querystring.stringify({
-          assetowner: 'nicky',
+          username: localStorage.getItem("userName")
         }),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            "sessiontoken": userToken
           },
         },
       )
@@ -59,7 +61,7 @@ function CustomerRequest() {
           console.log("sandeep1");
           dispatch({
             type: actionTypes.SET_CUSTREQUEST,
-            req: data.data.results
+            req: data.data.containers
           })
         //}
         // setLoadedData(data.data.results);
@@ -104,20 +106,22 @@ function CustomerRequest() {
                     <th>Depo Name</th>
                     <th>Container No</th>
                     <th>Purpose</th>
+                    <th>Status</th>
                   </tr>
                 </thead>
-                {req.map(singleData => {
+                <tbody>
+                {req ? req.map(singleData => {
 
-return <tbody>
-<tr>
-  <td>{singleData.depo_name}</td>
-  <td>{singleData.container_no}</td>
-  <td>{singleData.container_purpose} </td>
-</tr>
+                    return (
+                    <tr key ={singleData.containerNo}>
+                      <td>{singleData.depoName}</td>
+                      <td>{singleData.containerNo}</td>
+                      <td>{singleData.purpose} </td>
+                      <td>{singleData.status}</td>
+                    </tr>)
 
-</tbody>
-})}
-
+                    }): null}
+                  </tbody>
                 {/* <tbody className="text-center">
                   <tr>
                     <td>chennai</td>

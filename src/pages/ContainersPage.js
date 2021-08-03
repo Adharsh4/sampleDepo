@@ -15,7 +15,9 @@ import {MdPersonAdd} from 'react-icons/md'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const ContainersPage = (props) => {
-  const [{ containers }, dispatch] = useStateValue();
+  const [{ containers}, depocode , dispatch] = useStateValue();
+
+  // const [depocode , dispatch] = useStateValue();
   const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
   const [toShow, setToShow] = useState(false);
   const [actionName, setActionName] = useState('');
@@ -72,11 +74,12 @@ const ContainersPage = (props) => {
 
   const submitHandler = e => {
     console.log("aaa"+userToken);
+    console.log(depocode)
     axios
       .post(
-        'http://18.134.0.153:3200/container/getcontainersfordepoadmin',
+        'http://18.134.0.153:3200/container/getcontainersfordepo',
         querystring.stringify({
-          username: 'depoadmin',
+          depocode : depocode,
         }),
         {
           headers: {

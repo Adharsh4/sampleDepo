@@ -187,6 +187,47 @@ const ContainerPhotoUpload = () => {
       setInterList(newListt);
   };
 
+  const handleOtherChangePhoto = (e, id, index) => {
+    console.log(id);
+    let newListt = interlist.map(item => {
+      if (item.id == id && e.target.files.length) {
+        const obj = {
+          ...item,
+          preview: URL.createObjectURL(e.target.files[0]),
+        };
+        return obj;
+      } else {
+        return { ...item };
+      }
+    });
+    
+    axios
+      .post(
+        `http://18.134.0.153:3200/container/:deponame/:containerno/upload`,
+        querystring.stringify({
+          username: 'depoadmin',
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
+      )
+      .then(data => {
+        // setLoadedData(data.data.results);
+        console.log("aaaaaaaaaaaa");
+        document.getElementsByClassName('checkbox-items-inter')[index].checked = true;
+        setIntCount(p => p + 1);
+        
+      })
+      .catch(() => {
+        setIsConnError("errors");
+      });
+      setInterList(newListt);
+  };
+
+
+
   const handleInteriorOnChange = (e, id, index) => {
     if (e.target.checked) {
       setIntCount(p => p + 1);
@@ -242,6 +283,23 @@ const ContainerPhotoUpload = () => {
       console.log(temp.length);
       setList(temp);
       setCount(0);
+    }
+  };
+
+  const OtherCheckingBox = e => {
+    if (!e.target.checked) {
+      let items = document.getElementsByClassName('checkbox-items-inter');
+      for (let i = 0; i < items.length; i++) {
+        items[i].checked = false;
+      }
+      let temp = interlist;
+      for(let i=0;i<temp.length;i++){
+        
+        temp[i].preview = "";
+      }
+      console.log(temp.length);
+      setInterList(temp);
+      setIntCount(0);
     }
   };
 
@@ -425,7 +483,7 @@ const ContainerPhotoUpload = () => {
               type="checkbox"
               className="ml-0 other-checkbox"
               defaultChecked={false}
-              // onChange={OtherCheckingBox}
+              onChange={OtherCheckingBox}
             />{' '}
             Others
           </div>
@@ -457,7 +515,7 @@ const ContainerPhotoUpload = () => {
                     type="file"
                     id={`upload-buttons-${item.id}`}
                     className="photo-upload"
-                    // onChange={(e) => handleOtherChangePhoto(e, item.id, i)}
+                    onChange={(e) => handleOtherChangePhoto(e, item.id, i)}
                     style={{ display: "none" }}
                     key = {randomString}
                   />
@@ -467,7 +525,7 @@ const ContainerPhotoUpload = () => {
                     <input
                       className={`ml-1 checkbox-items-other check-${i}`}
                       type="checkbox"
-                      // onChange={(e) => handleOthersOnChange(e, item.id, i)}
+                      onChange={(e) => handleOthersOnChange(e, item.id, i)}
                     />
                   </div>
                 </div>

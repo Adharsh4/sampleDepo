@@ -122,6 +122,7 @@ const UserPage = () => {
         <th>E-mail</th>
         <th>Usertype</th>
         <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
       {users ? users.map(singleData => {
@@ -132,6 +133,7 @@ const UserPage = () => {
           <td>{singleData.userEmail}</td>
           <td>depoUser</td>
           <td> <span className="badge badge-success">Active</span></td>
+          <td><button type="button" className="btn btn-primary">Assign</button></td>
         </tr>
         
       </tbody>

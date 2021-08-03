@@ -116,6 +116,9 @@ function RegisterPage(props) {
                 </div>
              
                <button type="button" class="btn btn-block btn-success" onClick={handleSignUp}>Create Account</button>
+               <div className="text-center mt-3">
+               <Link to='/'>
+                      <button type="button" className="btn btn-link">If you have already regsitered. Please Sign in</button></Link></div>
               </form>
               </div>
             </div>

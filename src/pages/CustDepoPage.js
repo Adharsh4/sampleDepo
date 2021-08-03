@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useStateValue } from '../components/utility/stateProvider';
 import {actionTypes} from '../components/utility/reducer';
 
-function CustomerPage() {
+function CustDepoPage() {
 
     const myFunction =() =>{
         var input, filter, table, tr, td, i, txtValue;
@@ -34,9 +34,9 @@ function CustomerPage() {
     return (
         <div>
              <Page
-          className="CustomerPage"
-          title="Customers"
-          breadcrumbs={[{ name: 'customers', active: true }]}
+          className="CustDepoPage"
+          title="Depo"
+          breadcrumbs={[{ name: 'depo', active: true }]}
         >
           <div className="row">
             <div className="col-md-10">
@@ -50,7 +50,7 @@ function CustomerPage() {
             </div>
             
             <div className="col-md-2">
-              <Link to={'/customerform'}>
+              <Link to={'/customerdepoform'}>
                 <RiAddCircleFill className="icon"/>
               </Link>
             </div>
@@ -61,28 +61,22 @@ function CustomerPage() {
               <Table hover>
                 <thead>
                   <tr className="table-header">
-                    <th>Customer Name</th>
-                    <th>Mobile Number</th>
-                    <th>E-Mail</th>
-                    <th>Contact Person</th>
-                    <th>Address</th>
+                    <th>Depo Name</th>
+                    <th>Depo Code</th>
+                    <th>Depo Description</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr>
-                    <td>Customer 1</td>
-                    <td>9841983190</td>
-                    <td>customer1@gmail.com</td>
-                    <td>Arun</td>
+                    <td>Chennai</td>
+                    <td>CHA_TRI</td>
                     <td>Chennai Depo</td>
                   </tr>
                   <tr>
-                  <td>Customer 2</td>
-                    <td>9001983190</td>
-                    <td>customer2@gmail.com</td>
-                    <td>Shan</td>
-                    <td>Pune Depo</td>
+                  <td>Kolkata</td>
+                    <td>KOL_PORT</td>
+                    <td>Kolkata Depo</td>
                   </tr>
                 </tbody>
               </Table>
@@ -93,4 +87,4 @@ function CustomerPage() {
     )
 }
 
-export default CustomerPage
+export default CustDepoPage

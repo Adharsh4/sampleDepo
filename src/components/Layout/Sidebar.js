@@ -3,6 +3,8 @@ import sidebarBgImage from 'assets/img/sidebar/sidebar-4.jpg';
 import SourceLink from 'components/SourceLink';
 import React, { useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
+import {BiAnchor} from 'react-icons/bi';
+import {ImUsers} from 'react-icons/im'
 import {
   MdAccountCircle,
   MdArrowDropDownCircle,
@@ -75,10 +77,10 @@ const Sidebar = (props) => {
   }else if(usertype === "customer"){
     navItems = [
       { to: '/customerhomepage', name: 'home', exact: true, Icon: FaHome },
-      { to: '/customerrequest', name: 'request', exact: false, Icon: CgUserList},
-      { to: '/users', name: 'users', exact: false, Icon: CgUserList},
-      { to: '/customercontainerpage', name: 'containers', exact: false, Icon: CgUserList},
-      { to: '/customerpage', name: 'customers', exact: false, Icon: CgUserList}
+      { to: '/customerrequest', name: 'request', exact: false, Icon: FaAddressCard},
+      { to: '/users', name: 'users', exact: false, Icon: FaUsers},
+      { to: '/customerdepopage', name: 'depo', exact: false, Icon: BiAnchor},
+      { to: '/customerpage', name: 'customers', exact: false, Icon: ImUsers}
 
     ]
   }else{

@@ -41,8 +41,8 @@ const Containerform = React.lazy(()=> import('pages/Containerform'))
 const CustomerHomePage = React.lazy(()=> import('pages/CustomerHomePage'))
 const CustContainerPage = React.lazy(()=> import('pages/CustContainerPage'))
 const CustomerPage = React.lazy(()=> import('pages/CustomerPage'))
-
-
+const CustDepoPage = React.lazy(()=> import('pages/CustDepoPage'))
+const DepoCreationForm = React.lazy(()=> import('pages/DepoCreationForm'))
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`; 
@@ -125,7 +125,8 @@ class App extends React.Component {
                 <Route exact path="/customerhomepage" component={CustomerHomePage} />
                 <Route exact path="/customercontainerpage" component={CustContainerPage} />
                 <Route exact path="/customerpage" component={CustomerPage} />
-
+                <Route exact path="/customerdepopage" component={CustDepoPage} />
+                <Route exact path="/customerdepoform" component={DepoCreationForm} />
                 <Route
                   exact
                   path="/button-groups"

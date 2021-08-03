@@ -66,7 +66,7 @@ const Containerform = (props) => {
           containerpurpose: containerpurpose,
           containerassetowner: containerasstowner,
           containermanufacturedate: containermandate,    
-          containerstatus: containerstatus,
+          containerstatus: "",
           depocode: depocode
 
         }),
@@ -93,6 +93,26 @@ const Containerform = (props) => {
         console.log("errorrrrrrrr")
       });
   };}
+
+  // deponame: "Chennai",
+  const handleNext = () => {
+    if ( containerno === "" || containerrefno === "" || containersize === "" || containerweight === "" || containerpurpose === "" || containerasstowner === "" || containermandate === ""){
+      setIsError("errors");
+      return;
+    }
+    props.history.push("/containerphotoupload", {
+      containernumber: containerno,
+      containerrefno: containerrefno,
+      containersize: containersize,
+      containerweight: containerweight,
+      containerpurpose: containerpurpose,
+      containerassetowner: containerasstowner,
+      containermanufacturedate: containermandate,    
+      containerstatus: "active",
+      depocode: localStorage.getItem("depocode")
+
+    });
+  }
 
 
   const ErrorMessage = (
@@ -137,7 +157,9 @@ const Containerform = (props) => {
               id="depocode"
               placeholder="Enter Depo Name"
               name="depocode"
-              onChange={(e) => setDepocode(e.target.value)}
+              value = {localStorage.getItem("depocode")}
+              disabled
+              // onChange={(e) => setDepocode(e.target.value)}
             />
           </div>
         </div>
@@ -278,7 +300,7 @@ const Containerform = (props) => {
         </div>
         {/* <div class="row form-group">
           <div className="col-md-3">
-            <label for="containerstatus">Container Status :</label>
+            <label for=""active"">Container Status :</label>
           </div>
           <div className="col-md-9">
             <select
@@ -307,9 +329,9 @@ const Containerform = (props) => {
           </div>
           <div className="offset-8 col-md-2">
            
-              <Link to="/containerphotoupload"><button className="btn btn-primary" style={{float : "right"}}>
+              <button className="btn btn-primary" onClick={handleNext} style={{float : "right"}}>
                 Next
-              </button></Link>
+              </button>
          
           </div>
         </div>

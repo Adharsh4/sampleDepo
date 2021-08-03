@@ -276,7 +276,7 @@ const Containerform = (props) => {
             />
           </div>
         </div>
-        <div class="row form-group">
+        {/* <div class="row form-group">
           <div className="col-md-3">
             <label for="containerstatus">Container Status :</label>
           </div>
@@ -292,7 +292,7 @@ const Containerform = (props) => {
               <option value="inactive">Inactive</option>
             </select>
           </div>
-        </div><br/>
+        </div><br/> */}
 
         <div className="form-group mb-3 text-center">
                   {iserror !== "" ? ErrorMessage : null}</div>

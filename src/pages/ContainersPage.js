@@ -11,6 +11,9 @@ import Page from 'components/Page';
 import { useStateValue } from '../components/utility/stateProvider';
 import {actionTypes} from '../components/utility/reducer';
 import {CgSoftwareUpload} from 'react-icons/cg'
+import DownloadIcon from "../assets/img/container/export-csv.png";
+import UploadIcon from "../assets/img/container/import-csv.png";
+import UserIcon from "../assets/img/container/add-user.png";
 import {MdPersonAdd} from 'react-icons/md'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -169,12 +172,43 @@ if(containers){
               title="Type in a name"
             />
           </div>
-          <div className="col-md-2 ">
-            <Link to='/containerphotoupload'><CgSoftwareUpload size={25}  /></Link>
+          <div className="col-md-2"  style={{ display: "flex",justifyContent: "space-around" }}>
+            <Link to='/containerphotoupload'>
+                <div style={{ maxWidth: "25px" }}>
+                    <img
+                      src={UploadIcon}
+                      className="img-fluid fixed-banner"
+                      alt="uploadicon"
+                      title="UploadCSV"
+                    />
+                    </div>
+              </Link>
+
+              <Link to='/'>
+                <div style={{ maxWidth: "25px" }}>
+                    <img
+                    src={DownloadIcon}
+                    className="img-fluid fixed-banner"
+                    alt="downloadicon"
+                    title="DownloadCSV"
+                    />
+                    </div>
+              </Link>
           </div>
+
+          
+
           <div className="col-md-2">
             <Link to={'/containerform'}>
-            <MdPersonAdd size={25}/>
+            {/* <MdPersonAdd size={25}/> */}
+            <div style={{ maxWidth: "25px" }}>
+                    <img
+                    src={UserIcon}
+                    className="img-fluid fixed-banner"
+                    alt="usericon"
+                    title="AddContainer"
+                    />
+                    </div>
             </Link>
           </div>
         </div>

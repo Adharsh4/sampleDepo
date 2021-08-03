@@ -7,6 +7,9 @@ import { useStateValue } from '../components/utility/stateProvider';
 import {actionTypes} from '../components/utility/reducer';
 import { Link } from "react-router-dom";
 import {CgSoftwareUpload} from 'react-icons/cg'
+import DownloadIcon from "../assets/img/container/export-csv.png";
+import UploadIcon from "../assets/img/container/import-csv.png";
+import UserIcon from "../assets/img/container/add-user.png";
 import {MdPersonAdd} from 'react-icons/md'
 
 const UserPage = () => {
@@ -105,12 +108,35 @@ const UserPage = () => {
                     <div className="col-md-8">
                     <input type="text" id="myInput" onKeyUp={myFunction} placeholder="Search for names.." title="Type in a name" /> 
                     </div>
-                    <div className="col-md-2">
-                    <CgSoftwareUpload size={25}  />
+                    <div className="col-md-2" style={{ display: "flex",justifyContent: "space-around" }}>
+                    <div style={{ maxWidth: "25px" }}>
+                    <img
+                           src={UploadIcon}
+                           className="img-fluid fixed-banner"
+                           alt="uploadicon"
+                           title="UploadCSV"
+                    />
                     </div>
+
+                    <div style={{ maxWidth: "25px" }}>
+                    <img
+                        src={DownloadIcon}
+                        className="img-fluid fixed-banner"
+                        alt="downloadicon"
+                        title="DownloadCSV"
+                    />
+                    </div>
+                    </div>
+
                     <div className="col-md-2">
                       <Link to={'/userform'}>
-                      <MdPersonAdd size={25}/> </Link>
+                      <img
+                    src={UserIcon}
+                    className="img-fluid fixed-banner"
+                    alt="usericon"
+                    title="AddUser"
+                    />
+                       </Link>
                     </div>
                 </div>
                 <div className="row">

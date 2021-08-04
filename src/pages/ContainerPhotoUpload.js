@@ -8,11 +8,12 @@ import querystring from 'querystring';
 import { RiImageAddFill } from 'react-icons/ri';
 import { UncontrolledAlert } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import JSZip from 'jszip';
 
 const ContainerPhotoUpload = props => {
   const [randomString, setRandomString] = useState('');
   const [isconnerror, setIsConnError] = useState('');
-
+  const [selectfile, setSelectFile] = useState([]);
   const [otherList, setOtherList] = useState([
     { name: 'Others', id: 1, preview: '', defaultValue: 0 },
   ]);
@@ -128,6 +129,12 @@ const ContainerPhotoUpload = props => {
       document.getElementsByClassName('checkbox-items')[index].checked = true;
 
       document.getElementsByClassName('checkbox-items')[index].disabled = false;
+      let newProp = {
+        [list[index].name]: e.target.files[0]
+      }
+      let toAdd = selectfile;
+      toAdd.push(newProp);
+      setSelectFile(toAdd);
       setCount(p => p + 1);
       setList(newList);
     }
@@ -351,53 +358,70 @@ const ContainerPhotoUpload = props => {
 
   const handleOnSubmit = e => {
     e.preventDefault();
-    let formedObjext = {
-      extstatus: exterior,
-      intstatus: interior,
-      intfront: interlist[4].defaultValue,
-      intdoors: interlist[5].defaultValue,
-      introof: interlist[1].defaultValue,
-      intfloor: interlist[0].defaultValue,
-      intleft: interlist[2].defaultValue,
-      intright: interlist[3].defaultValue,
-      // interiormachinery: 1,
-      // interiorcscplate: 1,
-      // interiorothers: 1,
-      extfront: list[1].defaultValue,
-      extrearrdoor: list[2].defaultValue,
-      extroof: list[5].defaultValue,
-      extleftside: list[3].defaultValue,
-      extrightside: list[4].defaultValue,
-      extcscplate : list[0].defaultValue,
-      extunderstructure : list[6].defaultValue,
-      extreefermachinery : list[7].defaultValue,
-      exttanksvalves : list[8].defaultValue,
-      othersstatus : other,
-      others : otherList[0].defaultValue
-    };
-    console.log(exterior);
-    axios
-      .post(
-        `http://18.134.0.153:3200/container/containercreation`,
-        querystring.stringify({
-          ...props.location.state,
-          ...formedObjext,
-        }),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            sessiontoken: userToken,
-          },
-        },
-      )
-      .then(data => {
-        // setLoadedData(data.data.results);
-        console.log(data);
-        //  console.log(data);
-      })
-      .catch(() => {
-        // setIsConnError("errors");
-      });
+    console.log(selectfile);
+    let zip = new JSZip()
+    for(let file in selectfile){
+      let filename = file.name;
+      zip.file(filename, file);
+    }
+    zip.generateAsync({type:'blob'}).then((blobdata)=>{
+      // create zip blob file
+      let zipblob = new Blob([blobdata])
+
+      // For development and testing purpose
+      // Download the zipped file 
+      var elem = window.document.createElement("a")
+      elem.href = window.URL.createObjectURL(zipblob)
+      elem.download = 'compressed.zip'
+      elem.click()
+  })
+    // let formedObjext = {
+    //   extstatus: exterior,
+    //   intstatus: interior,
+    //   intfront: interlist[4].defaultValue,
+    //   intdoors: interlist[5].defaultValue,
+    //   introof: interlist[1].defaultValue,
+    //   intfloor: interlist[0].defaultValue,
+    //   intleft: interlist[2].defaultValue,
+    //   intright: interlist[3].defaultValue,
+    //   // interiormachinery: 1,
+    //   // interiorcscplate: 1,
+    //   // interiorothers: 1,
+    //   extfront: list[1].defaultValue,
+    //   extrearrdoor: list[2].defaultValue,
+    //   extroof: list[5].defaultValue,
+    //   extleftside: list[3].defaultValue,
+    //   extrightside: list[4].defaultValue,
+    //   extcscplate : list[0].defaultValue,
+    //   extunderstructure : list[6].defaultValue,
+    //   extreefermachinery : list[7].defaultValue,
+    //   exttanksvalves : list[8].defaultValue,
+    //   othersstatus : other,
+    //   others : otherList[0].defaultValue
+    // };
+    // console.log(exterior);
+    // axios
+    //   .post(
+    //     `http://18.134.0.153:3200/container/containercreation`,
+    //     querystring.stringify({
+    //       ...props.location.state,
+    //       ...formedObjext,
+    //     }),
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded',
+    //         sessiontoken: userToken,
+    //       },
+    //     },
+    //   )
+    //   .then(data => {
+    //     // setLoadedData(data.data.results);
+    //     console.log(data);
+    //     //  console.log(data);
+    //   })
+    //   .catch(() => {
+    //     // setIsConnError("errors");
+    //   });
   };
 
   const ConnErrorMessage = (

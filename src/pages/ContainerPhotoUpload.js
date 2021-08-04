@@ -37,6 +37,7 @@ const ContainerPhotoUpload = props => {
     { name: 'Interior Door', id: 6, preview: '', defaultValue: 0 },
   ]);
   const [count, setCount] = useState(0);
+  const [compressimg, setCompreeImage] = useState([])
   const [intcount, setIntCount] = useState(0);
   const [othercount, setOtherCount] = useState(0);
   const [menuItems, setMenuItems] = useState('');
@@ -113,6 +114,9 @@ const ContainerPhotoUpload = props => {
 
   const handleChangePhoto = (e, id, index) => {
     console.log(id);
+    let compress = compressimg;
+    compress.push(e.target.files)
+    setCompreeImage(compress);
     let newList = list.map(item => {
       if (item.id == id && e.target.files.length) {
         const obj = {
@@ -358,11 +362,15 @@ const ContainerPhotoUpload = props => {
 
   const handleOnSubmit = e => {
     e.preventDefault();
+    compressimg.map(item=>{
+      console.log("file",item)
+    })
     console.log(selectfile);
     let zip = new JSZip()
-    for(let file in selectfile){
-      let filename = file.name;
-      zip.file(filename, file);
+    for(let file of compressimg){
+      console.log("arun",file[0])
+      let filename = file[0].name;
+      zip.file(filename, file[0], {binary: true});
     }
     zip.generateAsync({type:'blob'}).then((blobdata)=>{
       // create zip blob file

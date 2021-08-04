@@ -5,41 +5,39 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import axiosInstance from '../components/utility/axios';
 import querystring from 'querystring';
-import {RiImageAddFill} from 'react-icons/ri'
-import {
-  UncontrolledAlert,
-} from 'reactstrap';
-import { Link } from "react-router-dom";
+import { RiImageAddFill } from 'react-icons/ri';
+import { UncontrolledAlert } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-const ContainerPhotoUpload = (props) => {
-  const [randomString, setRandomString] = useState("");
-  const[isconnerror, setIsConnError]=useState("")
+const ContainerPhotoUpload = props => {
+  const [randomString, setRandomString] = useState('');
+  const [isconnerror, setIsConnError] = useState('');
 
   const [otherList, setOtherList] = useState([
-    { name: 'Others', id: 1, preview: '', defaultValue: 0  }
-  ])
+    { name: 'Others', id: 1, preview: '', defaultValue: 0 },
+  ]);
   const [list, setList] = useState([
     { name: 'CSC Plate', id: 1, preview: '', defaultValue: 0 },
-    { name: 'Exterior Front', id: 2, preview: '', defaultValue: 0  },
-    { name: 'Exterior Rear(Door)', id: 3, preview: '', defaultValue: 0  },
-    { name: 'Exterior Left', id: 4, preview: '', defaultValue: 0  },
-    { name: 'Exterior Right', id: 5, preview: '', defaultValue: 0  },
-    { name: 'Exterior Roof', id: 6, preview: '' , defaultValue: 0 },
-    { name: 'Exterior Understructure', id: 7, preview: '', defaultValue: 0  },
-    { name: 'Reefer : Machinery', id: 8, preview: '', defaultValue: 0  },
-    { name: 'Tanks : Valves', id: 9, preview: '', defaultValue: 0  },
+    { name: 'Exterior Front', id: 2, preview: '', defaultValue: 0 },
+    { name: 'Exterior Rear(Door)', id: 3, preview: '', defaultValue: 0 },
+    { name: 'Exterior Left', id: 4, preview: '', defaultValue: 0 },
+    { name: 'Exterior Right', id: 5, preview: '', defaultValue: 0 },
+    { name: 'Exterior Roof', id: 6, preview: '', defaultValue: 0 },
+    { name: 'Exterior Understructure', id: 7, preview: '', defaultValue: 0 },
+    { name: 'Reefer : Machinery', id: 8, preview: '', defaultValue: 0 },
+    { name: 'Tanks : Valves', id: 9, preview: '', defaultValue: 0 },
   ]);
   const [interlist, setInterList] = useState([
-    { name: 'Interior Floor', id: 1, preview: '' , defaultValue: 0 },
-    { name: 'Interior Roof', id: 2, preview: '' , defaultValue: 0 },
-    { name: 'Interior Left', id: 3, preview: '', defaultValue: 0  },
-    { name: 'Interior Right', id: 4, preview: '', defaultValue: 0  },
-    { name: 'Interior Front', id: 5, preview: '', defaultValue: 0  },
-    { name: 'Interior Door', id: 6, preview: '' , defaultValue: 0 },
+    { name: 'Interior Floor', id: 1, preview: '', defaultValue: 0 },
+    { name: 'Interior Roof', id: 2, preview: '', defaultValue: 0 },
+    { name: 'Interior Left', id: 3, preview: '', defaultValue: 0 },
+    { name: 'Interior Right', id: 4, preview: '', defaultValue: 0 },
+    { name: 'Interior Front', id: 5, preview: '', defaultValue: 0 },
+    { name: 'Interior Door', id: 6, preview: '', defaultValue: 0 },
   ]);
   const [count, setCount] = useState(0);
   const [intcount, setIntCount] = useState(0);
-  const [othercount , setOtherCount] = useState(0);
+  const [othercount, setOtherCount] = useState(0);
   const [menuItems, setMenuItems] = useState('');
   const [exterior, setExterior] = useState(0);
   const [interior, setInterior] = useState(0);
@@ -50,7 +48,9 @@ const ContainerPhotoUpload = (props) => {
 
   const [checkContent, setCheckContent] = useState(null);
   const [selectedText, setSelectedText] = useState(0);
-  const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
+  const [userToken, setUserToken] = useState(
+    localStorage.getItem('user_token'),
+  );
 
   // const [deponame, setDepoName] = useState(props.match.params.deponame);
 
@@ -64,14 +64,13 @@ const ContainerPhotoUpload = (props) => {
     if (count >= 1) {
       // console.log(  document.getElementsByClassName("exterior-checkbox")[0].checked);
       document.getElementsByClassName('exterior-checkbox')[0].checked = true;
-      setExterior(1)
+      setExterior(1);
     }
     if (count < 1 && document.getElementsByClassName('exterior-checkbox')[0]) {
       // console.log(document.getElementsByClassName("exterior-checkbox")[0].checked = false);
 
       document.getElementsByClassName('exterior-checkbox')[0].checked = false;
-      setExterior(0)
-
+      setExterior(0);
     }
   }, [count]);
 
@@ -79,16 +78,16 @@ const ContainerPhotoUpload = (props) => {
     if (intcount >= 1) {
       // console.log(  document.getElementsByClassName("exterior-checkbox")[0].checked);
       document.getElementsByClassName('interior-checkbox')[0].checked = true;
-      setInterior(1)
+      setInterior(1);
     }
-    if ( 
+    if (
       intcount < 1 &&
       document.getElementsByClassName('interior-checkbox')[0]
     ) {
       // console.log(document.getElementsByClassName("exterior-checkbox")[0].checked = false);
 
       document.getElementsByClassName('interior-checkbox')[0].checked = false;
-      setInterior(0)
+      setInterior(0);
     }
   }, [intcount]);
 
@@ -96,19 +95,18 @@ const ContainerPhotoUpload = (props) => {
     if (othercount >= 1) {
       // console.log(  document.getElementsByClassName("exterior-checkbox")[0].checked);
       document.getElementsByClassName('other-checkbox')[0].checked = true;
-      setOther(1)
+      setOther(1);
     }
-    if ( 
+    if (
       othercount < 1 &&
       document.getElementsByClassName('other-checkbox')[0]
     ) {
       // console.log(document.getElementsByClassName("exterior-checkbox")[0].checked = false);
 
       document.getElementsByClassName('other-checkbox')[0].checked = false;
-      setOther(0)
+      setOther(0);
     }
   }, [othercount]);
-
 
   //Exterior Functions-----------------------------------------------------------------------
 
@@ -126,12 +124,12 @@ const ContainerPhotoUpload = (props) => {
         return { ...item };
       }
     });
-    if(e.target.files[0]){
-    document.getElementsByClassName('checkbox-items')[index].checked = true;
-      
+    if (e.target.files[0]) {
+      document.getElementsByClassName('checkbox-items')[index].checked = true;
+
       document.getElementsByClassName('checkbox-items')[index].disabled = false;
       setCount(p => p + 1);
-    setList(newList);
+      setList(newList);
     }
   };
 
@@ -145,11 +143,11 @@ const ContainerPhotoUpload = (props) => {
       // console.log("ss");
       // setRandomString("ss");
       let newList = list.map(item => {
-        if (item.id == index+1) {
+        if (item.id == index + 1) {
           const obj = {
             ...item,
             defaultValue: 0,
-            preview: "",
+            preview: '',
           };
           return obj;
         } else {
@@ -158,12 +156,11 @@ const ContainerPhotoUpload = (props) => {
       });
       document.getElementsByClassName('checkbox-items')[index].disabled = true;
       setList(newList);
-      
+
       setCount(p => p - 1);
     }
   };
 
-  
   const checkingBox = e => {
     if (!e.target.checked) {
       let items = document.getElementsByClassName('checkbox-items');
@@ -172,22 +169,20 @@ const ContainerPhotoUpload = (props) => {
         items[i].disabled = true;
       }
       let temp = list;
-      for(let i=0;i<temp.length;i++){
-        
-        temp[i].preview = "";
+      for (let i = 0; i < temp.length; i++) {
+        temp[i].preview = '';
         temp[i].defaultValue = 0;
       }
       console.log(temp.length);
       setList(temp);
       setCount(0);
       setExterior(0);
-    }else{
+    } else {
       setExterior(1);
     }
   };
 
   //-------------------------------------------------------------------------------Exterior Functions X-----
-  
 
   //----------Interior Fuction ------------------------------------------------------------------------------
 
@@ -205,12 +200,16 @@ const ContainerPhotoUpload = (props) => {
         return { ...item };
       }
     });
-    if(e.target.files[0]){
-    document.getElementsByClassName('checkbox-items-inter')[index].checked = true;
-      
-      document.getElementsByClassName('checkbox-items-inter')[index].disabled = false;
+    if (e.target.files[0]) {
+      document.getElementsByClassName('checkbox-items-inter')[
+        index
+      ].checked = true;
+
+      document.getElementsByClassName('checkbox-items-inter')[
+        index
+      ].disabled = false;
       setIntCount(p => p + 1);
-    setInterList(newList);
+      setInterList(newList);
     }
   };
 
@@ -224,25 +223,26 @@ const ContainerPhotoUpload = (props) => {
       // console.log("ss");
       // setRandomString("ss");
       let newList = interlist.map(item => {
-        if (item.id == index+1) {
+        if (item.id == index + 1) {
           const obj = {
             ...item,
             defaultValue: 0,
-            preview: "",
+            preview: '',
           };
           return obj;
         } else {
           return { ...item };
         }
       });
-      document.getElementsByClassName('checkbox-items-inter')[index].disabled = true;
+      document.getElementsByClassName('checkbox-items-inter')[
+        index
+      ].disabled = true;
       setInterList(newList);
-      
+
       setIntCount(p => p - 1);
     }
   };
 
-  
   const interiorCheckingBox = e => {
     if (!e.target.checked) {
       setInterior(1);
@@ -252,23 +252,20 @@ const ContainerPhotoUpload = (props) => {
         items[i].disabled = true;
       }
       let temp = interlist;
-      for(let i=0;i<temp.length;i++){
-        
-        temp[i].preview = "";
+      for (let i = 0; i < temp.length; i++) {
+        temp[i].preview = '';
         temp[i].defaultValue = 0;
       }
       console.log(temp.length);
       setInterList(temp);
       setIntCount(0);
       setInterior(0);
-    }else{
+    } else {
       setInterior(1);
     }
   };
 
   //-----------------------------------------------------------------------Interior Function X ----------------
-
-
 
   //------------Other Function ----------------------------------------------------------------------------------
 
@@ -286,12 +283,16 @@ const ContainerPhotoUpload = (props) => {
         return { ...item };
       }
     });
-    if(e.target.files[0]){
-    document.getElementsByClassName('checkbox-items-other')[index].checked = true;
-      
-      document.getElementsByClassName('checkbox-items-other')[index].disabled = false;
+    if (e.target.files[0]) {
+      document.getElementsByClassName('checkbox-items-other')[
+        index
+      ].checked = true;
+
+      document.getElementsByClassName('checkbox-items-other')[
+        index
+      ].disabled = false;
       setOtherCount(p => p + 1);
-    setOtherList(newList);
+      setOtherList(newList);
     }
   };
 
@@ -305,25 +306,26 @@ const ContainerPhotoUpload = (props) => {
       // console.log("ss");
       // setRandomString("ss");
       let newList = otherList.map(item => {
-        if (item.id == index+1) {
+        if (item.id == index + 1) {
           const obj = {
             ...item,
             defaultValue: 0,
-            preview: "",
+            preview: '',
           };
           return obj;
         } else {
           return { ...item };
         }
       });
-      document.getElementsByClassName('checkbox-items-other')[index].disabled = true;
+      document.getElementsByClassName('checkbox-items-other')[
+        index
+      ].disabled = true;
       setOtherList(newList);
-      
+
       setOtherCount(p => p - 1);
     }
   };
 
-  
   const otherCheckingBox = e => {
     if (!e.target.checked) {
       let items = document.getElementsByClassName('checkbox-items-other');
@@ -332,94 +334,83 @@ const ContainerPhotoUpload = (props) => {
         items[i].disabled = true;
       }
       let temp = otherList;
-      for(let i=0;i<temp.length;i++){
-        
-        temp[i].preview = "";
+      for (let i = 0; i < temp.length; i++) {
+        temp[i].preview = '';
         temp[i].defaultValue = 0;
       }
       console.log(temp.length);
       setOtherList(temp);
-      setOtherCount(0);             
+      setOtherCount(0);
       setOther(0);
-    }else{
+    } else {
       setOther(1);
     }
   };
 
-
   //-------------------------------------------------------------------------Other Funtion X ----------------------------
 
-
-
-
-
-
-
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = e => {
     e.preventDefault();
     let formedObjext = {
       exteriorstatus: exterior,
-      interiorstatus : interior,
+      interiorstatus: interior,
       exterioriorfront: list[1].defaultValue,
-      interiorfront : interlist[4].defaultValue,
-      interiordoors : interlist[5].defaultValue,
-      interiorroof : interlist[1].defaultValue,
-      interiorfloor : interlist[0].defaultValue,
-      interiorleft : interlist[2].defaultValue,
-      interiorright : interlist[3].defaultValue,
-      interiormachinery : 1,
-      interiorcscplate : 1,
-      interiorothers : 1,
-      exteriordoors : list[3].defaultValue,
-      exteriorroof : list[6].defaultValue,
-      exteriorfloor : 1,
-      exteriorleft : list[4].defaultValue,
-      exteriorright : list[5].defaultValue,
+      interiorfront: interlist[4].defaultValue,
+      interiordoors: interlist[5].defaultValue,
+      interiorroof: interlist[1].defaultValue,
+      interiorfloor: interlist[0].defaultValue,
+      interiorleft: interlist[2].defaultValue,
+      interiorright: interlist[3].defaultValue,
+      interiormachinery: 1,
+      interiorcscplate: 1,
+      interiorothers: 1,
+      exteriordoors: list[3].defaultValue,
+      exteriorroof: list[6].defaultValue,
+      exteriorfloor: 1,
+      exteriorleft: list[4].defaultValue,
+      exteriorright: list[5].defaultValue,
       // exteriorcscplate : ,
       // exteriorunderdtructure : ,
       // exteriorreefermachinery : ,
       // exteriortanks : ,
       // other : other
-    }
+    };
     console.log(exterior);
     axios
       .post(
         `http://18.134.0.153:3200/container/containercreation`,
-        querystring.stringify(
-          {
-            ...props.location.state,
-            ...formedObjext
-          }
-          ),
+        querystring.stringify({
+          ...props.location.state,
+          ...formedObjext,
+        }),
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            "sessiontoken": userToken
+            sessiontoken: userToken,
           },
         },
       )
       .then(data => {
         // setLoadedData(data.data.results);
         console.log(data);
-      //  console.log(data);
-        
+        //  console.log(data);
       })
       .catch(() => {
         // setIsConnError("errors");
       });
-  }
+  };
 
-  
   const ConnErrorMessage = (
     <UncontrolledAlert color="danger">
-       Connection Failed, Please Try Again Later
+      Connection Failed, Please Try Again Later
     </UncontrolledAlert>
-  )
+  );
 
   return (
     <div className="container">
       <div className="form-group mb-3 text-center">
-                  {isconnerror !== "" ? ConnErrorMessage : null}</div>
+        {isconnerror !== '' ? ConnErrorMessage : null}
+      </div>
       <h4 className="text-center">CONTAINER PHOTO UPLOAD</h4>
 
       <form>
@@ -445,56 +436,58 @@ const ContainerPhotoUpload = (props) => {
             <label>Photo Subcategory:</label>
           </div>
           <div className="col-md-10">
-          <div class="scrollmenu">
-          
-          {list.map((item, i) => (
-            
-            <a>
-                <div className="menu-item" key={item.id}>
-                  
-                  <label htmlFor={`upload-button-${item.id}`} className="label-for-photo">
-                    {item.preview ?
-                      <img src={item.preview} alt="dummy" width="100" height="100" />
-                      :
-                      <div>
-                        <span className="fa-stack fa-2x mt-3 mb-2">
-                        <RiImageAddFill /></span>
-                        
-                      </div>}
-                  </label>
+            <div class="scrollmenu">
+              {list.map((item, i) => (
+                <a>
+                  <div className="menu-item" key={item.id}>
+                    <label
+                      htmlFor={`upload-button-${item.id}`}
+                      className="label-for-photo"
+                    >
+                      {item.preview ? (
+                        <img
+                          src={item.preview}
+                          alt="dummy"
+                          width="100"
+                          height="100"
+                        />
+                      ) : (
+                        <div>
+                          <span className="fa-stack fa-2x mt-3 mb-2">
+                            <RiImageAddFill />
+                          </span>
+                        </div>
+                      )}
+                    </label>
 
-                  <input
-                    type="file"
-                    id={`upload-button-${item.id}`}
-                    className="photo-upload"
-                    onChange={(e) => handleChangePhoto(e, item.id, i)}
-                    style={{ display: "none" }}
-                    key = {randomString}
-                  />
-
-                  <div>
-                    {item.name}
                     <input
-                      className={`ml-1 checkbox-items check-${i}`}
-                      type="checkbox"
-                      disabled
-                      onChange={(e) => handleOnChange(e, item.id, i)}
+                      type="file"
+                      id={`upload-button-${item.id}`}
+                      className="photo-upload"
+                      onChange={e => handleChangePhoto(e, item.id, i)}
+                      style={{ display: 'none' }}
+                      key={randomString}
                     />
+
+                    <div>
+                      {item.name}
+                      <input
+                        className={`ml-1 checkbox-items check-${i}`}
+                        type="checkbox"
+                        disabled
+                        onChange={e => handleOnChange(e, item.id, i)}
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                
                 </a>
               ))}
-              
-          </div>
-
+            </div>
           </div>
         </div>
 
-
- {/* Interior */}
- <br/><br/>
+        {/* Interior */}
+        <br />
+        <br />
         <h5>
           <i>Interior Photos</i>
         </h5>
@@ -517,59 +510,57 @@ const ContainerPhotoUpload = (props) => {
             <label>Photo Subcategory:</label>
           </div>
           <div className="col-md-10">
-          <div class="scrollmenu">
-          
-          {interlist.map((item, i) => (
-            
-            <a>
-                <div className="menu-item" key={item.id}>
-                  
-                  <label htmlFor={`upload-buttons-${item.id}`} className="label-for-photo">
-                    {item.preview ?
-                      <img src={item.preview} alt="dummy" width="100" height="100" />
-                      :
-                      <div>
-                        <span className="fa-stack fa-2x mt-3 mb-2">
-                        <RiImageAddFill /></span>
-                        
-                      </div>}
-                  </label>
+            <div class="scrollmenu">
+              {interlist.map((item, i) => (
+                <a>
+                  <div className="menu-item" key={item.id}>
+                    <label
+                      htmlFor={`upload-buttons-${item.id}`}
+                      className="label-for-photo"
+                    >
+                      {item.preview ? (
+                        <img
+                          src={item.preview}
+                          alt="dummy"
+                          width="100"
+                          height="100"
+                        />
+                      ) : (
+                        <div>
+                          <span className="fa-stack fa-2x mt-3 mb-2">
+                            <RiImageAddFill />
+                          </span>
+                        </div>
+                      )}
+                    </label>
 
-                  <input
-                    type="file"
-                    id={`upload-buttons-${item.id}`}
-                    className="photo-upload"
-                    onChange={(e) => handleInteriorChangePhoto(e, item.id, i)}
-                    style={{ display: "none" }}
-                    key = {randomString}
-                  />
-
-                  <div>
-                    {item.name}
                     <input
-                      className={`ml-1 checkbox-items-inter check-${i}`}
-                      type="checkbox"
-                      disabled
-                      onChange={(e) => handleInteriorOnChange(e, item.id, i)}
+                      type="file"
+                      id={`upload-buttons-${item.id}`}
+                      className="photo-upload"
+                      onChange={e => handleInteriorChangePhoto(e, item.id, i)}
+                      style={{ display: 'none' }}
+                      key={randomString}
                     />
+
+                    <div>
+                      {item.name}
+                      <input
+                        className={`ml-1 checkbox-items-inter check-${i}`}
+                        type="checkbox"
+                        disabled
+                        onChange={e => handleInteriorOnChange(e, item.id, i)}
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                
                 </a>
               ))}
-              
-  </div>
-
+            </div>
           </div>
         </div>
 
-
-
-
-
-
-        <br/><br/>
+        <br />
+        <br />
         <h5>
           <i>Others</i>
         </h5>
@@ -592,68 +583,72 @@ const ContainerPhotoUpload = (props) => {
             <label>Photo Subcategory:</label>
           </div>
           <div className="col-md-10">
-          <div class="scrollmenu">
-          
-          {otherList.map((item, i) => (
-            
-            <a>
-                <div className="menu-item" key={item.id}>
-                  
-                  <label htmlFor={`upload-buttons-other-${item.id}`} className="label-for-photo">
-                    {item.preview ?
-                      <img src={item.preview} alt="dummy" width="100" height="100" />
-                      :
-                      <div>
-                        <span className="fa-stack fa-2x mt-3 mb-2">
-                        <RiImageAddFill /></span>
-                        
-                      </div>}
-                  </label>
+            <div class="scrollmenu">
+              {otherList.map((item, i) => (
+                <a>
+                  <div className="menu-item" key={item.id}>
+                    <label
+                      htmlFor={`upload-buttons-other-${item.id}`}
+                      className="label-for-photo"
+                    >
+                      {item.preview ? (
+                        <img
+                          src={item.preview}
+                          alt="dummy"
+                          width="100"
+                          height="100"
+                        />
+                      ) : (
+                        <div>
+                          <span className="fa-stack fa-2x mt-3 mb-2">
+                            <RiImageAddFill />
+                          </span>
+                        </div>
+                      )}
+                    </label>
 
-                  <input
-                    type="file"
-                    id={`upload-buttons-other-${item.id}`}
-                    className="photo-upload"
-                    onChange={(e) => handleOtherChangePhoto(e, item.id, i)}
-                    style={{ display: "none" }}
-                    key = {randomString}
-                  />
-
-                  <div>
-                    {item.name}
                     <input
-                      className={`ml-1 checkbox-items-other check-${i}`}
-                      type="checkbox"
-                      disabled
-                      onChange={(e) => handleOtherOnChange(e, item.id, i)}
+                      type="file"
+                      id={`upload-buttons-other-${item.id}`}
+                      className="photo-upload"
+                      onChange={e => handleOtherChangePhoto(e, item.id, i)}
+                      style={{ display: 'none' }}
+                      key={randomString}
                     />
+
+                    <div>
+                      {item.name}
+                      <input
+                        className={`ml-1 checkbox-items-other check-${i}`}
+                        type="checkbox"
+                        disabled
+                        onChange={e => handleOtherOnChange(e, item.id, i)}
+                      />
+                    </div>
                   </div>
-                </div>
                 </a>
               ))}
-          </div>
+            </div>
           </div>
         </div>
 
         <div className="buttons">
-          
-            <Link to="/containerform"><button className="btn btn-primary">Back</button></Link>
-          <button className="btn btn-primary submit" onClick={(e) => handleOnSubmit(e)}>Submit</button>
+          <Link to="/containerform">
+            <button className="btn btn-primary">Back</button>
+          </Link>
+          <button
+            className="btn btn-primary submit"
+            onClick={e => handleOnSubmit(e)}
+          >
+            Submit
+          </button>
         </div>
-
-
-
-
-
-        
       </form>
     </div>
   );
-}
+};
 
 export default withRouter(ContainerPhotoUpload);
-
-
 
 // axiosInstance
 //       .post(
@@ -670,13 +665,13 @@ export default withRouter(ContainerPhotoUpload);
 //       .then(data => {
 //         // setLoadedData(data.data.results);
 //         console.log("aaaaaaaaaaaa");
-        
-        
+
 //       })
 //       .catch(() => {
 //         setIsConnError("errors");
 //       });
-{/* <h5>
+{
+  /* <h5>
           <i>Interior Photos</i>
         </h5>
         <div className="row checkbox mt-3">
@@ -755,4 +750,5 @@ export default withRouter(ContainerPhotoUpload);
             <button className="btn btn-primary">Previous</button>
           </Link>
           <button className="btn btn-primary submit">Submit</button>
-        </div> */}
+        </div> */
+}

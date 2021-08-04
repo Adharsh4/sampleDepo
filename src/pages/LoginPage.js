@@ -37,7 +37,7 @@ function LoginPage(props) {
           type: actionTypes.REMOVE_USER
         })
         props.history.push("/login");
-      }, 5*60*1000)
+      }, 10*60*1000)
     }
   
     const handleSignIn = (e) => {
@@ -179,7 +179,8 @@ function LoginPage(props) {
                   {isErrors !== "" ? alertMessages : null}</div>
 
                   <div className="mt-4">
-                       <div><p className="text-muted">Depo Admin Login - depoadmin@me.com</p></div>
+                       <div><p className="text-muted">Depo Admin Login - depoad01@me.com</p></div>
+                       <div><p className="text-muted">Customer Admin Login - ravis@me.com</p></div>
                        <div><p className="text-muted">Password - test@123</p></div>
                   </div>
                   <div className="row">

@@ -113,20 +113,7 @@ const ContainersPage = props => {
           <td>{singleData.container_no}</td>
           <td>{singleData.container_size}</td>
           <td>{singleData.container_manufactuer_date}</td>
-          <td>
-            {singleData.image_upload_status}
-            <img
-              src={ViewIcon}
-              style={{
-                width: 20,
-                height: 20,
-                cursor: 'pointer',
-                marginLeft: '10px',
-              }}
-              alt="viewicon"
-              title="View Images"
-            />
-          </td>
+          <td>{singleData.image_upload_status}</td>
           <td>
             <button
               type="button"
@@ -140,6 +127,23 @@ const ContainersPage = props => {
               }
             >
               Share
+            </button>
+            <button
+              type="button"
+              className="btn-default"
+              style={{
+                cursor: 'pointer',
+                marginLeft: '10px',
+              }}
+              // onClick={() =>
+              //   changeToShow(
+              //     'SHARE_CONTAINER',
+              //     singleData.container_no,
+              //     singleData.container_manufactuer_date,
+              //   )
+              // }
+            >
+              View
             </button>
           </td>
         </tr>

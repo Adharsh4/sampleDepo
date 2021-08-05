@@ -9,14 +9,16 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Page from 'components/Page';
 import { useStateValue } from '../components/utility/stateProvider';
-import {actionTypes} from '../components/utility/reducer';
-import {CgSoftwareUpload} from 'react-icons/cg'
-import {MdPersonAdd} from 'react-icons/md'
+import { actionTypes } from '../components/utility/reducer';
+import { CgSoftwareUpload } from 'react-icons/cg';
+import { MdPersonAdd } from 'react-icons/md';
 
 const ContainersPage = () => {
   const [{ containers }, dispatch] = useStateValue();
 
-  const [userToken, setUserToken] = useState(localStorage.getItem("user_token"))
+  const [userToken, setUserToken] = useState(
+    localStorage.getItem('user_token'),
+  );
   const [toShow, setToShow] = useState(false);
   const [actionName, setActionName] = useState('');
   const [depoState, setDepoState] = useState('');
@@ -57,8 +59,6 @@ const ContainersPage = () => {
     }
   };
 
-   
-
   const changeToShow = (actionName, container_no, manDate) => {
     setToShow(true);
     setActionName(actionName);
@@ -80,56 +80,53 @@ const ContainersPage = () => {
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            "sessiontoken": userToken
+            sessiontoken: userToken,
           },
         },
       )
       .then(data => {
-        console.log("aa");
+        console.log('aa');
         console.log(data.data.results);
         //if(data.data.results.length != containers.length){
-       
-          dispatch({
-            type: actionTypes.SET_CONTAINERS,
-            containers: data.data.results
-          })
+
+        dispatch({
+          type: actionTypes.SET_CONTAINERS,
+          containers: data.data.results,
+        });
         //}
         // setLoadedData(data.data.results);
       })
       .catch(() => {});
   };
 
- 
-let loadedContent = [];
-if(containers){
-   loadedContent = containers.map(singleData => {
-    return (
-      <tr key={singleData.container_no} >
-        <td>{singleData.container_no}</td>
-        <td>{singleData.container_size}</td>
-        <td>{singleData.container_manufactuer_date}</td>
-        <td>
-          Pending
-        </td>
-        <td>
-          <button
-            type="button"
-            className="btn-default"
-            onClick={() =>
-              changeToShow(
-                'SHARE_CONTAINER',
-                singleData.container_no,
-                singleData.container_manufactuer_date,
-              )
-            }
-          >
-            Share
-          </button>{' '}
-        </td>
-      </tr>
-    );
-  });
-}
+  let loadedContent = [];
+  if (containers) {
+    loadedContent = containers.map(singleData => {
+      return (
+        <tr key={singleData.container_no}>
+          <td>{singleData.container_no}</td>
+          <td>{singleData.container_size}</td>
+          <td>{singleData.container_manufactuer_date}</td>
+          <td>Pending</td>
+          <td>
+            <button
+              type="button"
+              className="btn-default"
+              onClick={() =>
+                changeToShow(
+                  'SHARE_CONTAINER',
+                  singleData.container_no,
+                  singleData.container_manufactuer_date,
+                )
+              }
+            >
+              Share
+            </button>{' '}
+          </td>
+        </tr>
+      );
+    });
+  }
 
   return (
     <React.Fragment>
@@ -156,7 +153,8 @@ if(containers){
           title="Containers"
           breadcrumbs={[{ name: 'containers', active: true }]}
           className="ContainersPage"
-        ></Page><br />
+        ></Page>
+        <br />
         <div className="row">
           <div className="col-md-12">
             <input
@@ -193,7 +191,6 @@ if(containers){
             </table>
           </div>
         </div>
-        
       </div>
     </React.Fragment>
   );

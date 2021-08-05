@@ -7,7 +7,8 @@ export const initialState = {
     req :[],
     user_token: "",
     userName : "",
-    depocode : ""
+    depocode : "",
+    results : ""
 }
 
 
@@ -22,7 +23,8 @@ export const actionTypes = {
     SET_USER_TOKEN: "SET_USER_TOKEN",
     REMOVE_USER: "REMOVE_USER",
     SET_USERNAME : "SET_USERNAME", 
-    SET_DEPOCODE : "SET_DEPOCODE"
+    SET_DEPOCODE : "SET_DEPOCODE",
+    SET_DETAILS : "SET_DETAILS" 
 }
 
 const reducer = (state = initialState, action) => {
@@ -71,7 +73,12 @@ const reducer = (state = initialState, action) => {
             return { 
                  ...state,
                 depocode: action.depocode
-                    } 
+                    }
+                    case actionTypes.SET_DETAILS:
+                        return { 
+                             ...state,
+                            results: action.results
+                                }              
         case actionTypes.REMOVE_USER:
             return {
                 ...state,
@@ -83,7 +90,8 @@ const reducer = (state = initialState, action) => {
                 req :[],
                 user_token: "",
                 userName : "",
-                depocode : ""
+                depocode : "",
+                results : ""
             }    
         default:
             return state;

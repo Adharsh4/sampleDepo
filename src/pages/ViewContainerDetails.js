@@ -10,14 +10,15 @@ import { Alert } from 'reactstrap';
 import {
   UncontrolledAlert,
 } from 'reactstrap';
+  
 
-
-const Containerform = (props) => {
-
+const ViewContainerDetails = (props) => {
+    const [{ results }, dispatch] = useStateValue();  
+  const[result,setResults]=useState('')
   const[success, setSuccess]=useState("")
   const[iserror, setIsError]=useState("")
   const[isconnerror, setIsConnError]=useState("")
-  const [{ user_token }, dispatch] = useStateValue();
+//   const [{ user_token }, dispatch] = useStateValue();
   const [depocode, setDepocode] = useState("");
   const [deponame, setDeponame] = useState("");
   const [containerno, setContainerno] = useState("");
@@ -51,12 +52,17 @@ const Containerform = (props) => {
   //   setContainerManDate(e.target.value);
   // }
 
-  const check = (e) => {
-    e.preventDefault();
-    if (depocode === "" || containerno === "" || containerrefno === "" || containersize === "" || containerweight === "" || containerpurpose === "" || containerasstowner === "" || containermandate === ""|| containerstatus === ""){
-      setIsError("errors");
-      return;
-    }else{
+
+  useEffect(() => {
+    check();
+  }, []);
+
+  const check = e => {
+    // e.preventDefault();
+    // if (depocode === "" || containerno === "" || containerrefno === "" || containersize === "" || containerweight === "" || containerpurpose === "" || containerasstowner === "" || containermandate === ""|| containerstatus === ""){
+    //   setIsError("errors");
+    //   return;
+    // }else{
     axios
       .post(
         "http://18.134.0.153:3200/container/getcontainerdatabycontainernoadmin",
@@ -70,8 +76,8 @@ const Containerform = (props) => {
         //   containerassetowner: containerasstowner,
         //   containermanufacturedate: containermandate,    
         //   containerstatus: "",
-        //   depocode: depocode
-            containerno : ''
+        //   depocode: depocode  
+            containerno : props.location.state.containerNo
         }),
         {
           headers: {
@@ -83,10 +89,13 @@ const Containerform = (props) => {
       .then((data) => {
         // setLoadedData(data.data.results);
         console.log(data);
-        // dispatch({
-        //   type: actionTypes.UPDATE_CONTAINERS,
-        //   newContainer: data.data.containerCreation
-        // })
+        console.log(data.data.results[0])
+        let dataresult = data;
+        // setResults(data);
+        dispatch({
+          type: actionTypes.SET_DETAILS,
+          results: data.data.results[0]
+        })
         // setSuccess("success");
         // alert(data.data.message)
         // props.history.push("/containers");
@@ -96,8 +105,74 @@ const Containerform = (props) => {
         setIsConnError("errors");
         console.log("errorrrrrrrr")
       });
-  };}
+  ;}
 
+
+  const checkAccept = (e, container_no) => {
+    e.preventDefault();
+    axios
+      .post(
+        'http://18.134.0.153:3200/container/containerrequestaccept',
+        querystring.stringify({
+          containerno: props.location.state.containerNo,
+          username: localStorage.getItem("userName"),
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            sessiontoken: userToken,
+          },
+        },
+      )
+      .then(data => {
+        // setLoadedData(data.data.results);
+        console.log('xxxx');
+        console.log(data);
+        DepoCustomerHandler();
+        props.history.push('/containerrequest')
+        //     alert(data.data.message)
+      })
+      .catch(() => {
+        console.log('errorrrrrrrr');
+      });
+  };
+
+  const DepoCustomerHandler = e => {
+    axios
+      .post(
+        'http://18.134.0.153:3200/container/getnewcontainerrequest',
+        querystring.stringify({
+          username: localStorage.getItem('userName'),
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            sessiontoken: userToken,
+          },
+        },
+      )
+      .then(data => {
+        console.log('sandeep');
+        console.log(data);
+        //if(data.data.results.length != containers.length){
+        console.log('sandeep1');
+        dispatch({
+          type: actionTypes.SET_REQUESTS,
+          requests: data.data.containers,
+        });
+        //}
+        // setLoadedData(data.data.results);
+      })
+      .catch(() => {
+        console.log('errorrr');
+      });
+  };
+
+
+  console.log("aaa");
+  console.log(props.location.state.containerNo);
+  console.log(props.location.state.userName);
+  console.log("aaa" + results.id)
   // deponame: "Chennai",
   const handleNext = () => {
     // if ( containerno === "" || containerrefno === "" || containersize === "" || containerweight === "" || containerpurpose === "" || containerasstowner === "" || containermandate === ""){
@@ -161,7 +236,7 @@ const Containerform = (props) => {
               id="depocode"
               placeholder="Enter Depo Name"
               name="depocode"
-              value = {localStorage.getItem("depocode")}
+              value = {results.depo_code}
               disabled
               // onChange={(e) => setDepocode(e.target.value)}
             />
@@ -178,7 +253,9 @@ const Containerform = (props) => {
               id="deponame"
               placeholder="Enter Depo Name"
               name="deponame"
-              onChange={(e) => setDeponame(e.target.value)}
+              value={results.depo_code}
+              disabled
+            //   onChange={(e) => setDeponame(e.target.value)}
             />
           </div>
         </div>
@@ -193,7 +270,9 @@ const Containerform = (props) => {
               id="containerno"
               placeholder="Enter Container Number"
               name="containerno"
-              onChange={(e) => setContainerno(e.target.value)}
+              value={results.container_no}
+              disabled
+            //   onChange={(e) => setContainerno(e.target.value)}
             />
           </div>
         </div>
@@ -208,7 +287,9 @@ const Containerform = (props) => {
               id="containerrefno"
               placeholder="Enter Container Ref No"
               name="containerrefno"
-              onChange={(e) => setContainerRefNo(e.target.value)}
+              value={results.container_refno}
+              disabled
+            //   onChange={(e) => setContainerRefNo(e.target.value)}
             />
           </div>
         </div>
@@ -223,7 +304,9 @@ const Containerform = (props) => {
               id="containersize"
               placeholder="Enter Container Size"
               name="containersize"
-              onChange={(e) => setContainerSize(e.target.value)}
+              value={results.container_size}
+              disabled
+            //   onChange={(e) => setContainerSize(e.target.value)}
             />
           </div>
         </div>
@@ -238,7 +321,9 @@ const Containerform = (props) => {
               id="containerweight"
               placeholder="Enter Container Weight"
               name="containerweight"
-              onChange={(e) =>  setContainerWeight(e.target.value)}
+              value={results.container_weight}
+              disabled
+            //   onChange={(e) =>  setContainerWeight(e.target.value)}
             />
           </div>
         </div>
@@ -253,7 +338,9 @@ const Containerform = (props) => {
               id="containerpurpose"
               placeholder="Enter Container Purpose"
               name="containerpurpose"
-              onChange={(e) => setContainerPurpose(e.target.value)}
+              value={results.container_purpose}
+              disabled
+            //   onChange={(e) => setContainerPurpose(e.target.value)}
             />
           </div>
         </div>
@@ -268,7 +355,9 @@ const Containerform = (props) => {
               id="containerasstowner"
               placeholder="Enter Container Asset Owner"
               name="containerasstowner"
-              onChange={(e) => setContainerAsstOwner(e.target.value)}
+              value={results.container_asset_owner}
+              disabled
+            //   onChange={(e) => setContainerAsstOwner(e.target.value)}
             />
           </div>
         </div>
@@ -293,12 +382,14 @@ const Containerform = (props) => {
           </div>
           <div className="col-md-9">
             <input
-              type="date"
+              type="text"
               className="form-control"
               id="containermandate"
-              placeholder="Enter Container Manufacture Date"
+            //   placeholder="Enter Container Manufacture Date"
               name="containermandate"
-              onChange={(e) => setContainerManDate(e.target.value)}
+              value={results.container_manufactuer_date}
+              disabled
+            //   onChange={(e) => setContainerManDate(e.target.value)}
             />
           </div>
         </div>
@@ -329,12 +420,17 @@ const Containerform = (props) => {
 
         <div className="row">
           <div className="col-md-2">
-            <Link to="/containers"><buttton className="btn btn-primary">Back</buttton></Link>
+            <Link to="/containerrequest"><buttton className="btn btn-primary">Back</buttton></Link>
           </div>
           <div className="offset-8 col-md-2">
            
-              <button className="btn btn-primary" onClick={handleNext} style={{float : "right"}}>
-                Next
+              <button className="btn btn-primary" onClick={e =>
+                                        checkAccept(
+                                          e,
+                                          props.location.state.containerNo
+                                        )
+                                      } style={{float : "right"}}>
+                Accept
               </button>
          
           </div>
@@ -348,7 +444,7 @@ const Containerform = (props) => {
   
 }
 
-export default Containerform;
+export default ViewContainerDetails;
 
 // export const Containerform = (props) => {
 

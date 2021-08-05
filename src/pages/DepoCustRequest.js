@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function DepoCustPage() {
+function DepoCustPage(props) {
   const [userToken, setUserToken] = useState(
     localStorage.getItem('user_token'),
   );
@@ -138,6 +138,10 @@ function DepoCustPage() {
         console.log('errorrrrrrrr');
       });
   };
+
+  const handleViewContainer = (containerNo) => {
+    props.history.push("/viewContainer", {"containerNo": containerNo});
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -220,7 +224,7 @@ function DepoCustPage() {
                                       Accept
                                     </Button>{' '}
                                     <Button color="danger">Decline</Button>{' '}
-                                    <Button color="primary">View</Button>{' '}
+                                    <Button color="primary" onClick={e => handleViewContainer(singleData.containerNo,singleData.userName)}>View</Button>{' '}
                                   </div>
                                 ) : singleData.status === 'Active' ? (
                                   <div>

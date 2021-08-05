@@ -11,6 +11,7 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import CustomerLogin from './pages/CustomerLogin'
 import './styles/reduction.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+// import ViewContainerDetails from './pages/ViewContainerDetails';
 
 
 const AlertPage = React.lazy(() => import('pages/AlertPage'));
@@ -43,6 +44,7 @@ const CustContainerPage = React.lazy(()=> import('pages/CustContainerPage'))
 const CustomerPage = React.lazy(()=> import('pages/CustomerPage'))
 const CustDepoPage = React.lazy(()=> import('pages/CustDepoPage'))
 const DepoCreationForm = React.lazy(()=> import('pages/DepoCreationForm'))
+const ViewContainerDetails = React.lazy(()=> import('pages/ViewContainerDetails'))
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`; 
@@ -127,6 +129,7 @@ class App extends React.Component {
                 <Route exact path="/customerpage" component={CustomerPage} />
                 <Route exact path="/customerdepopage" component={CustDepoPage} />
                 <Route exact path="/customerdepoform" component={DepoCreationForm} />
+                <Route exact path="/viewContainer" component={ViewContainerDetails} />
                 <Route
                   exact
                   path="/button-groups"

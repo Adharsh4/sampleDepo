@@ -37,7 +37,7 @@ const ContainerPhotoUpload = props => {
     { name: 'Interior Door', id: 6, preview: '', defaultValue: 0 },
   ]);
   const [count, setCount] = useState(0);
-  const [compressimg, setCompreeImage] = useState([])
+  const [compressimg, setCompreeImage] = useState([]);
   const [intcount, setIntCount] = useState(0);
   const [othercount, setOtherCount] = useState(0);
   const [menuItems, setMenuItems] = useState('');
@@ -115,7 +115,7 @@ const ContainerPhotoUpload = props => {
   const handleChangePhoto = (e, id, index) => {
     console.log(id);
     let compress = compressimg;
-    compress.push(e.target.files)
+    compress.push(e.target.files);
     setCompreeImage(compress);
     let newList = list.map(item => {
       if (item.id == id && e.target.files.length) {
@@ -134,8 +134,8 @@ const ContainerPhotoUpload = props => {
 
       document.getElementsByClassName('checkbox-items')[index].disabled = false;
       let newProp = {
-        [list[index].name]: e.target.files[0]
-      }
+        [list[index].name]: e.target.files[0],
+      };
       let toAdd = selectfile;
       toAdd.push(newProp);
       setSelectFile(toAdd);
@@ -200,7 +200,7 @@ const ContainerPhotoUpload = props => {
   const handleInteriorChangePhoto = (e, id, index) => {
     console.log(id);
     let compress = compressimg;
-    compress.push(e.target.files)
+    compress.push(e.target.files);
     setCompreeImage(compress);
     let newList = interlist.map(item => {
       if (item.id == id && e.target.files.length) {
@@ -286,7 +286,7 @@ const ContainerPhotoUpload = props => {
   const handleOtherChangePhoto = (e, id, index) => {
     console.log(id);
     let compress = compressimg;
-    compress.push(e.target.files)
+    compress.push(e.target.files);
     setCompreeImage(compress);
     let newList = otherList.map(item => {
       if (item.id == id && e.target.files.length) {
@@ -368,28 +368,28 @@ const ContainerPhotoUpload = props => {
 
   const handleOnSubmit = e => {
     e.preventDefault();
-    compressimg.map(item=>{
-      console.log("file",item)
-    })
+    compressimg.map(item => {
+      console.log('file', item);
+    });
     console.log(selectfile);
-    let zip = new JSZip()
-    for(let file of compressimg){                   
-      console.log("arun",file[0])
+    let zip = new JSZip();
+    for (let file of compressimg) {
+      console.log('arun', file[0]);
       let filename = file[0].name;
-      zip.file(filename, file[0], {binary: true});
+      zip.file(filename, file[0], { binary: true });
     }
     let zipblob;
-    zip.generateAsync({type:'blob'}).then((blobdata)=>{
+    zip.generateAsync({ type: 'blob' }).then(blobdata => {
       // create zip blob file
-       zipblob = new Blob([blobdata])
+      zipblob = new Blob([blobdata]);
 
       // For development and testing purpose
-      // Download the zipped file 
-      var elem = window.document.createElement("a")
-      elem.href = window.URL.createObjectURL(zipblob)
-      elem.download = 'compressed.zip'
-      elem.click()
-  })
+      // Download the zipped file
+      // var elem = window.document.createElement('a');
+      // elem.href = window.URL.createObjectURL(zipblob);
+      // elem.download = 'compressed.zip';
+      // elem.click();
+    });
     let formedObjext = {
       extstatus: exterior,
       intstatus: interior,
@@ -407,12 +407,12 @@ const ContainerPhotoUpload = props => {
       extroof: list[5].defaultValue,
       extleftside: list[3].defaultValue,
       extrightside: list[4].defaultValue,
-      extcscplate : list[0].defaultValue,
-      extunderstructure : list[6].defaultValue,
-      extreefermachinery : list[7].defaultValue,
-      exttanksvalves : list[8].defaultValue,
-      othersstatus : other,
-      others : otherList[0].defaultValue
+      extcscplate: list[0].defaultValue,
+      extunderstructure: list[6].defaultValue,
+      extreefermachinery: list[7].defaultValue,
+      exttanksvalves: list[8].defaultValue,
+      othersstatus: other,
+      others: otherList[0].defaultValue,
     };
     console.log(exterior);
     axios
@@ -429,26 +429,28 @@ const ContainerPhotoUpload = props => {
           },
         },
       )
-      .then(data => {   
+      .then(data => {
         // setLoadedData(data.data.results);
-        console.log("yyy");
+        console.log('yyy');
         console.log(data.data.url);
         const fd = new FormData();
-        fd.append("blobData", zipblob)
-        axios.put(data.data.url, fd, {
-          headers:{
-            'Content-Type': 'multipart/form-data',
-          }
-        }).then(imageData => {
-          console.log("xxx");   
-          console.log(imageData);
-          alert("Container Created Successfully")
-          // props.history.push("/containers");
-        })
+        fd.append('blobData', zipblob);
+        axios
+          .put(data.data.url, fd, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(imageData => {
+            console.log('xxx');
+            console.log(imageData);
+            alert('Container Created Successfully');
+            // props.history.push("/containers");
+          });
         //  console.log(data);
       })
       .catch(() => {
-        // setIsConnError("errors");
+        setIsConnError('errors');
       });
   };
 

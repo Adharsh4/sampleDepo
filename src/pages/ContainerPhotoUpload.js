@@ -442,6 +442,8 @@ const ContainerPhotoUpload = props => {
         }).then(imageData => {
           console.log("xxx");   
           console.log(imageData);
+          alert("Container Created Successfully")
+          // props.history.push("/containers");
         })
         //  console.log(data);
       })

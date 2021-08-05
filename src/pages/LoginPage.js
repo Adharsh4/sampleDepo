@@ -37,7 +37,7 @@ function LoginPage(props) {
           type: actionTypes.REMOVE_USER
         })
         props.history.push("/login");
-      }, 10*60*1000)
+      }, 100*60*1000)
     }
   
     const handleSignIn = (e) => {
@@ -64,7 +64,7 @@ function LoginPage(props) {
         .then((data) => {
           console.log(data);
           localStorage.setItem("user_token", data.data.sessionToken);
-          const time = new Date(new Date().getTime() + 10 * 60 *1000);
+          const time = new Date(new Date().getTime() + 100*60*1000);
           localStorage.setItem("expiresIn", time);
           localStorage.setItem("userType", data.data.userType);
           localStorage.setItem("userName", data.data.userName);

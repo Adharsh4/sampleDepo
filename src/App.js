@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import React from 'react';
 import componentQueries from 'react-component-queries';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch, HashRouter } from 'react-router-dom';
 import CustomerLogin from './pages/CustomerLogin'
 import './styles/reduction.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -67,7 +67,7 @@ class App extends React.Component {
     
     return (
       <>
-      <BrowserRouter basename={getBasename()}>
+      <HashRouter>
         <GAListener>
           <Switch>
             <LayoutRoute
@@ -147,7 +147,7 @@ class App extends React.Component {
           </Switch>
         </GAListener>
         
-      </BrowserRouter>
+      </HashRouter>
       {/* <Button color="danger" onClick={toggle}>modall</Button> */}
       <Modal isOpen={this.state.modal} toggle={toggle} >
         <ModalHeader toggle={toggle}>Modal title</ModalHeader>

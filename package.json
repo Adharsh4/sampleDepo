@@ -2,7 +2,7 @@
   "name": "react-reduction",
   "version": "1.1.0",
   "private": false,
-  "homepage": "https://reduction-admin.github.io/react-reduction",
+  "homepage": "https://Adharsh4.github.io/sampleDepo",
   "dependencies": {
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.11.2",
@@ -46,7 +46,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "serve": "serve -s build",
-    "deploy": "gh-pages -d build",
+    "predeploy":"npm run build",
+    "deploy":"gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
